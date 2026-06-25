@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trip Itinerary Builder — Tokyo 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    line-height: 1.5;
+  }
+
+  .app { display: flex; height: 100vh; }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    width: 320px;
+    background: #fff;
+    border-right: 1px solid #e5e5e7;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .trip-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid #f0f0f2;
+  }
+  .trip-header h1 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .trip-header .meta { font-size: 13px; color: #86868b; }
+  .trip-header .meta span { margin-right: 12px; }
+
+  .itinerary-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+  }
+  .day-card {
+    border-radius: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #e5e5e7;
+    overflow: hidden;
+    transition: box-shadow .15s;
+    background: #fff;
+  }
+  .day-card.active { border-color: #0071e3; box-shadow: 0 0 0 1px #0071e3; }
+  .day-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    gap: 12px;
+  }
+  .day-header:hover { background: #fafafa; }
+  .day-number {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: #f2f2f7;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600;
+    color: #86868b;
+    flex-shrink: 0;
+  }
+  .day-card.active .day-number { background: #0071e3; color: #fff; }
+  .day-label { flex: 1; }
+  .day-label .day-title { font-size: 14px; font-weight: 600; }
+  .day-label .day-sub { font-size: 12px; color: #86868b; margin-top: 1px; }
+  .day-arrow { color: #c7c7cc; font-size: 12px; transition: transform .2s; }
+  .day-card.open .day-arrow { transform: rotate(180deg); }
+
+  .day-body { display: none; padding: 0 16px 16px; }
+  .day-card.open .day-body { display: block; }
+
+  .activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    transition: background .1s;
+  }
+  .activity-item:hover { background: #f5f5f7; }
+  .activity-time {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0071e3;
+    min-width: 42px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .activity-info { flex: 1; min-width: 0; }
+  .activity-name { font-size: 13px; font-weight: 500; }
+  .activity-detail { font-size: 12px; color: #86868b; margin-top: 2px; }
+  .activity-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #f2f2f7;
+    color: #86868b;
+    margin-top: 4px;
+  }
+  .activity-drag {
+    color: #c7c7cc;
+    cursor: grab;
+    font-size: 14px;
+    padding-top: 1px;
+    opacity: 0;
+    transition: opacity .1s;
+  }
+  .activity-item:hover .activity-drag { opacity: 1; }
+
+  .add-activity {
+    width: 100%;
+    padding: 8px;
+    border: 1px dashed #d2d2d7;
+    border-radius: 8px;
+    background: none;
+    color: #0071e3;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background .1s;
+  }
+  .add-activity:hover { background: #f0f4ff; }
+
+  /* ── Main panel ── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+  }
+  .toolbar {
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e5e7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+  }
+  .toolbar .btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #d2d2d7;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #1d1d1f;
+    transition: background .1s;
+  }
+  .toolbar .btn:hover { background: #f5f5f7; }
+  .toolbar .btn.primary {
+    background: #0071e3;
+    color: #fff;
+    border-color: #0071e3;
+  }
+  .toolbar .btn.primary:hover { background: #0077ed; }
+  .toolbar .spacer { flex: 1; }
+  .toolbar .trip-stats { font-size: 12px; color: #86868b; }
+
+  .map-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8ed;
+    position: relative;
+    overflow: hidden;
+  }
+  .map-placeholder {
+    text-align: center;
+    color: #86868b;
+  }
+  .map-placeholder .icon { font-size: 48px; margin-bottom: 12px; }
+  .map-placeholder p { font-size: 14px; }
+
+  /* Day markers on map */
+  .map-pin {
+    position: absolute;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #0071e3;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+    cursor: pointer;
+    transition: transform .15s;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+  }
+  .map-pin:hover { transform: scale(1.2); z-index: 2; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1d1d1f;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+
+  /* Add-activity inline form */
+  .inline-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    padding: 8px 0;
+  }
+  .inline-form input {
+    flex: 1;
+    padding: 8px 10px;
+    border: 1px solid #d2d2d7;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+  }
+  .inline-form input:focus { border-color: #0071e3; }
+  .inline-form .btn-sm {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: none;
+    background: #0071e3;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .inline-form .btn-sm:hover { background: #0077ed; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ── Sidebar ── -->
+  <div class="sidebar">
+    <div class="trip-header">
+      <h1>🇯🇵 Tokyo Spring 2026</h1>
+      <div class="meta">
+        <span>📅 Apr 3–9</span>
+        <span>📍 7 days</span>
+      </div>
+    </div>
+
+    <div class="itinerary-list" id="itinerary-list">
+      <!-- Days rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ── Main ── -->
+  <div class="main">
+    <div class="toolbar">
+      <button class="btn primary" onclick="exportItinerary()">📋 Export</button>
+      <button class="btn" onclick="addDay()">+ Add Day</button>
+      <span class="spacer"></span>
+      <span class="trip-stats" id="trip-stats">8 activities · 4 days planned</span>
+    </div>
+
+    <div class="map-area" id="map-area">
+      <div class="map-placeholder" id="map-placeholder">
+        <div class="icon">🗺️</div>
+        <p>Select a day to see its route</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──
+const days = [
+  {
+    id: 'd1', title: 'Arrival & Shinjuku', date: 'Apr 3',
+    activities: [
+      { time: '14:30', name: 'Check in — Hotel Gracery Shinjuku', detail: 'Kabukicho district, 5 min from station', tag: '🏨 Hotel' },
+      { time: '16:00', name: 'Explore Shinjuku Gyoen', detail: 'Cherry blossoms in full bloom', tag: '🌸 Nature' },
+      { time: '19:00', name: 'Dinner at Omoide Yokocho', detail: 'Yakitori alley, cash only', tag: '🍜 Food' },
+    ]
+  },
+  {
+    id: 'd2', title: 'Shibuya & Harajuku', date: 'Apr 4',
+    activities: [
+      { time: '09:30', name: 'Shibuya Crossing & Hachiko', detail: 'Beat the crowds, go early', tag: '📸 Sightseeing' },
+      { time: '11:00', name: 'Meiji Jingu Shrine', detail: 'Forest walk from Harajuku station', tag: '⛩️ Culture' },
+      { time: '14:00', name: 'Takeshita Street shopping', detail: 'Vintage stores, crepes, quirky finds', tag: '🛍️ Shopping' },
+    ]
+  },
+  {
+    id: 'd3', title: 'Asakusa & Akihabara', date: 'Apr 5',
+    activities: [
+      { time: '10:00', name: 'Senso-ji Temple', detail: 'Oldest temple in Tokyo, Nakamise street', tag: '⛩️ Culture' },
+      { time: '13:00', name: 'Ramen lunch at Ichiran', detail: 'Solo booth experience', tag: '🍜 Food' },
+    ]
+  },
+  {
+    id: 'd4', title: 'Day trip — Kamakura', date: 'Apr 6',
+    activities: []
+  }
+];
+
+let openDayId = 'd1';
+
+// ── Render ──
+function render() {
+  const list = document.getElementById('itinerary-list');
+  list.innerHTML = days.map(d => {
+    const isOpen = d.id === openDayId;
+    const actCount = d.activities.length;
+    const actStr = actCount === 0 ? 'No activities yet' : `${actCount} activit${actCount > 1 ? 'ies' : 'y'}`;
+
+    const activitiesHTML = d.activities.map((a, i) => `
+      <div class="activity-item" draggable="true" data-day="${d.id}" data-idx="${i}">
+        <div class="activity-time">${a.time}</div>
+        <div class="activity-info">
+          <div class="activity-name">${a.name}</div>
+          <div class="activity-detail">${a.detail}</div>
+          <span class="activity-tag">${a.tag}</span>
+        </div>
+        <div class="activity-drag">⠿</div>
+      </div>
+    `).join('');
+
+    return `
+      <div class="day-card ${isOpen ? 'open active' : ''}" id="day-${d.id}">
+        <div class="day-header" onclick="toggleDay('${d.id}')">
+          <div class="day-number">${days.indexOf(d) + 1}</div>
+          <div class="day-label">
+            <div class="day-title">${d.title}</div>
+            <div class="day-sub">${d.date} · ${actStr}</div>
+          </div>
+          <div class="day-arrow">▼</div>
+        </div>
+        <div class="day-body">
+          ${activitiesHTML}
+          <button class="add-activity" onclick="event.stopPropagation(); showAddForm('${d.id}')">+ Add activity</button>
+          <div id="form-${d.id}"></div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // Stats
+  const totalActs = days.reduce((s, d) => s + d.activities.length, 0);
+  const plannedDays = days.filter(d => d.activities.length > 0).length;
+  document.getElementById('trip-stats').textContent = `${totalActs} activities · ${plannedDays} days planned`;
+
+  // Map pins
+  updateMap();
+}
+
+function toggleDay(id) {
+  openDayId = openDayId === id ? null : id;
+  render();
+}
+
+function addDay() {
+  const n = days.length + 1;
+  days.push({
+    id: 'd' + Date.now(),
+    title: `Day ${n}`,
+    date: `Apr ${2 + n}`,
+    activities: []
+  });
+  openDayId = days[days.length - 1].id;
+  render();
+  toast('Day added');
+}
+
+function showAddForm(dayId) {
+  const formEl = document.getElementById('form-' + dayId);
+  if (formEl.innerHTML) { formEl.innerHTML = ''; return; }
+  formEl.innerHTML = `
+    <div class="inline-form">
+      <input type="text" placeholder="Activity name…" id="act-name-${dayId}" autofocus>
+      <input type="text" placeholder="Time (e.g. 14:00)" id="act-time-${dayId}" style="max-width:120px">
+      <button class="btn-sm" onclick="addActivity('${dayId}')">Add</button>
+    </div>
+  `;
+  setTimeout(() => document.getElementById('act-name-' + dayId).focus(), 50);
+}
+
+function addActivity(dayId) {
+  const name = document.getElementById('act-name-' + dayId).value.trim();
+  const time = document.getElementById('act-time-' + dayId).value.trim() || '—';
+  if (!name) return;
+  const day = days.find(d => d.id === dayId);
+  day.activities.push({ time, name: name, detail: '', tag: '📍 Activity' });
+  document.getElementById('form-' + dayId).innerHTML = '';
+  render();
+  toast(`"${name}" added`);
+}
+
+function exportItinerary() {
+  let text = '🗺️ Tokyo Spring 2026\n\n';
+  days.forEach((d, i) => {
+    text += `Day ${i + 1} — ${d.title} (${d.date})\n`;
+    d.activities.forEach(a => text += `  ${a.time}  ${a.name}\n`);
+    text += '\n';
+  });
+  toast('Itinerary copied to clipboard (mock)');
+  console.log(text);
+}
+
+function updateMap() {
+  const area = document.getElementById('map-area');
+  const placeholder = document.getElementById('map-placeholder');
+  const openDay = days.find(d => d.id === openDayId);
+
+  // Remove old pins
+  area.querySelectorAll('.map-pin').forEach(p => p.remove());
+
+  if (!openDay || openDay.activities.length === 0) {
+    placeholder.style.display = 'block';
+    return;
+  }
+  placeholder.style.display = 'none';
+
+  // Place pins in a line for the mock
+  openDay.activities.forEach((a, i) => {
+    const pin = document.createElement('div');
+    pin.className = 'map-pin';
+    pin.textContent = i + 1;
+    pin.style.left = `${15 + i * 18}%`;
+    pin.style.top = `${30 + Math.sin(i * 1.2) * 20}%`;
+    pin.title = a.name;
+    area.appendChild(pin);
+  });
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(el._timeout);
+  el._timeout = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e => {
+  if (e.key === 'n' && e.metaKey) { e.preventDefault(); addDay(); }
+});
+
+// Initial render
+render();
+</script>
+
+</body>
+</html>
