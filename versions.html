@@ -568,6 +568,26 @@
             <li><strong>Interaction:</strong> Linear wizard with back/next navigation; toast feedback; copy-to-clipboard share</li>
           </ul>
 
+          <div class="section-label">Screenshots</div>
+          <div class="screenshots">
+            <div class="shot">
+              <img src="assets/screenshots/v2-warm-step1-basics.png" alt="v2 step 1 basics" loading="lazy">
+              <div class="shot-caption">Step 1 · Trip basics & vibe</div>
+            </div>
+            <div class="shot">
+              <img src="assets/screenshots/v2-warm-step3-activities.png" alt="v2 step 3 activities" loading="lazy">
+              <div class="shot-caption">Step 3 · Activities per day</div>
+            </div>
+            <div class="shot">
+              <img src="assets/screenshots/v2-warm-step4-review.png" alt="v2 step 4 review" loading="lazy">
+              <div class="shot-caption">Step 4 · Review & share link</div>
+            </div>
+            <div class="shot">
+              <img src="assets/screenshots/v2-warm-all-days.png" alt="v2 all days filled" loading="lazy">
+              <div class="shot-caption">All 7 days · complete itinerary</div>
+            </div>
+          </div>
+
           <div class="section-label">Links</div>
           <div class="links">
             <a class="link-btn primary" href="warm.html" target="_blank">↗ Open prototype</a>
@@ -618,6 +638,22 @@
             <li><strong>Interaction:</strong> All-at-once — everything visible, no wizard steps</li>
           </ul>
 
+          <div class="section-label">Screenshots</div>
+          <div class="screenshots">
+            <div class="shot">
+              <img src="assets/screenshots/v1-itinerary-sidebar.png" alt="v1 sidebar layout" loading="lazy">
+              <div class="shot-caption">Sidebar + map panel layout</div>
+            </div>
+            <div class="shot">
+              <img src="assets/screenshots/v1-itinerary-day-expanded.png" alt="v1 day expanded" loading="lazy">
+              <div class="shot-caption">Day expanded · inline form</div>
+            </div>
+            <div class="shot">
+              <img src="assets/screenshots/v1-itinerary-map-pins.png" alt="v1 map pins" loading="lazy">
+              <div class="shot-caption">Map pins on day selection</div>
+            </div>
+          </div>
+
           <div class="section-label">Links</div>
           <div class="links">
             <a class="link-btn primary" href="index.html" target="_blank">↗ Open prototype</a>
@@ -634,7 +670,57 @@
     </footer>
   </div>
 
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-panel">
+      <div class="lightbox-img-wrap">
+        <img id="lightbox-img" src="" alt="">
+      </div>
+      <div class="lightbox-foot">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+      </div>
+    </div>
+  </div>
+
   <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    function openLightbox(src, caption, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || caption || 'Screenshot';
+      lightboxCaption.textContent = caption || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    }
+
+    document.querySelectorAll('.shot img').forEach(img => {
+      img.addEventListener('click', () => {
+        const caption = img.closest('.shot')?.querySelector('.shot-caption')?.textContent?.trim() || '';
+        openLightbox(img.src, caption, img.alt);
+      });
+    });
+
+    lightboxBackdrop.addEventListener('click', closeLightbox);
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
