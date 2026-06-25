@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itinerary Builder — Version Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: oklch(98% 0.003 250);
+      --surface: oklch(100% 0 0);
+      --surface-2: oklch(97% 0.004 250);
+      --border: oklch(91% 0.008 250);
+      --border-subtle: oklch(95% 0.005 250);
+      --text: oklch(16% 0.02 250);
+      --text-2: oklch(45% 0.015 250);
+      --text-3: oklch(62% 0.01 250);
+      --primary: oklch(52% 0.14 250);
+      --primary-soft: oklch(95% 0.03 250);
+      --success: oklch(58% 0.16 145);
+      --success-soft: oklch(95% 0.04 145);
+      --warning: oklch(72% 0.18 75);
+      --warning-soft: oklch(96% 0.05 75);
+      --muted: oklch(94% 0.006 250);
+      --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.05);
+      --shadow-md: 0 4px 12px oklch(0% 0 0 / 0.06);
+      --shadow-lg: 0 12px 32px oklch(0% 0 0 / 0.08);
+      --r-sm: 4px;
+      --r-md: 8px;
+      --r-lg: 12px;
+      --r-xl: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .hero {
+      margin-bottom: 40px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    h1 {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(28px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-2);
+      max-width: 56ch;
+    }
+
+    .meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-2);
+    }
+
+    .meta-pill strong { color: var(--text); font-weight: 600; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toolbar-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-3);
+      align-self: center;
+      margin-right: 4px;
+    }
+
+    .filter-btn {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover { border-color: var(--primary); color: var(--text); }
+    .filter-btn.active {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .entry {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .entry.hidden { display: none; }
+
+    .entry-head {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .entry-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .version-tag {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--primary-soft);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .date {
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    .badge {
+      margin-left: auto;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .badge.latest {
+      background: var(--success-soft);
+      color: var(--success);
+      border: 1px solid oklch(85% 0.08 145);
+    }
+
+    .badge.stable {
+      background: var(--muted);
+      color: var(--text-3);
+      border: 1px solid var(--border);
+    }
+
+    .badge.experiment {
+      background: var(--warning-soft);
+      color: oklch(45% 0.12 75);
+      border: 1px solid oklch(88% 0.08 75);
+    }
+
+    .entry-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .entry-desc {
+      font-size: 14px;
+      color: var(--text-2);
+    }
+
+    .entry-body {
+      padding: 0 22px 22px;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin: 18px 0 10px;
+    }
+
+    .changelog {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .changelog li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--text-2);
+    }
+
+    .changelog li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.55;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: var(--r-md);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+
+    .link-btn:hover {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    .link-btn.primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    .link-btn.primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .shot {
+      border: 1px dashed var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--surface-2);
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .shot:hover {
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .shot img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      background: var(--muted);
+      cursor: zoom-in;
+    }
+
+    .shot-placeholder {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px 14px;
+      text-align: center;
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .shot-placeholder svg {
+      width: 28px;
+      height: 28px;
+      opacity: 0.35;
+    }
+
+    .shot-caption {
+      padding: 8px 10px;
+      font-size: 11px;
+      color: var(--text-3);
+      border-top: 1px solid var(--border-subtle);
+      background: var(--surface);
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-3);
+      text-align: center;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: oklch(0% 0 0 / 0.72);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      cursor: zoom-out;
+    }
+
+    .lightbox-panel {
+      position: relative;
+      z-index: 1;
+      max-width: min(96vw, 1400px);
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      transform: scale(0.96);
+      transition: transform 0.2s ease;
+    }
+
+    .lightbox.open .lightbox-panel {
+      transform: scale(1);
+    }
+
+    .lightbox-img-wrap {
+      overflow: auto;
+      max-height: calc(92vh - 52px);
+      background: var(--surface-2);
+    }
+
+    .lightbox-panel img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .lightbox-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--surface);
+    }
+
+    .lightbox-caption {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-2);
+    }
+
+    .lightbox-close {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      background: var(--surface-2);
+      color: var(--text-2);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .lightbox-close:hover {
+      background: var(--muted);
+      color: var(--text);
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 32px 16px 64px; }
+      .badge { margin-left: 0; }
+      .entry-top { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-eyebrow"><span class="dot"></span> Itinerary Builder</div>
+      <h1>Version Log</h1>
+      <p class="hero-sub">
+        Design explorations for a trip itinerary builder — from utilitarian sidebar to warm stepwise wizard.
+        Built as throwaway HTML mockups to compare interaction models.
+      </p>
+      <div class="meta-bar">
+        <span class="meta-pill"><strong>Owner</strong> Shad · shad@tripwheel.io</span>
+        <span class="meta-pill"><strong>Latest</strong> v2-warm-stepwise</span>
+        <span class="meta-pill"><strong>Updated</strong> Jun 25, 2026</span>
+        <span class="meta-pill"><strong>Entries</strong> 2 versions</span>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <span class="toolbar-label">Show:</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="prototype">Prototypes</button>
+      <button class="filter-btn" data-filter="experiment">Experiments</button>
+    </div>
+
+    <div class="timeline">
+
+      <!-- v2 — Warm stepwise wizard -->
+      <article class="entry" data-type="prototype">
+        <div class="entry-head">
+          <div class="entry-top">
+            <span class="version-tag">v2-warm-stepwise</span>
+            <span class="date">Jun 25, 2026</span>
+            <span class="badge latest">Latest</span>
+          </div>
+          <h2 class="entry-title">Soothing step-by-step wizard with share link</h2>
+          <p class="entry-desc">
+            A complete rethink — guided 4-step wizard (Basics → Days → Activities → Review & Share).
+            Headspace-meets-Typeform aesthetic with warm cream tones, sage green accents, and Playfair Display headings.
+            Generates a copyable share link on completion.
+          </p>
+          <div class="tags">
+            <span class="tag">Wizard flow</span>
+            <span class="tag">Share link</span>
+            <span class="tag">Warm palette</span>
+            <span class="tag">Playfair Display</span>
+            <span class="tag">Step-by-step</span>
+            <span class="tag">Guided</span>
+          </div>
+        </div>
+        <div class="entry-body">
+          <div class="section-label">Update log</div>
+          <ul class="changelog">
+            <li>4-step guided wizard: Trip basics → Add days → Fill activities per day → Review & share</li>
+            <li>Progress indicator with step dots and labels across the top</li>
+            <li>Vibe picker (Relaxed / Active / Foodie / Cultural / Adventure / Wellness) on step 1</li>
+            <li>Auto-generate days from start/end dates; manual day labels and reordering</li>
+            <li>Inline activity entry per day with time + name fields</li>
+            <li>Review page shows full itinerary grouped by day with a shareable URL mock</li>
+            <li>Warm cream (#faf7f2) background, sage (#7c9a7e) accents, terracotta (#c17a5e) share button</li>
+            <li>Pre-filled with a complete 7-day Tokyo foodie trip for instant feel</li>
+            <li>Fixed from initial deploy: all 7 days filled, lands on review page directly</li>
+          </ul>
+
+          <div class="section-label">Design stance</div>
+          <ul class="changelog">
+            <li><strong>Layout:</strong> Single centered column (max 600px), no sidebar or map panel</li>
+            <li><strong>Typography:</strong> Playfair Display headings + system sans-serif body</li>
+            <li><strong>Color:</strong> Cream + sage + terracotta — soothing, not utilitarian</li>
+            <li><strong>Interaction:</strong> Linear wizard with back/next navigation; toast feedback; copy-to-clipboard share</li>
+          </ul>
+
+          <div class="section-label">Links</div>
+          <div class="links">
+            <a class="link-btn primary" href="warm.html" target="_blank">↗ Open prototype</a>
+            <a class="link-btn" href="index.html" target="_blank">v1 · Sidebar (previous)</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- v1 — Sidebar itinerary -->
+      <article class="entry" data-type="prototype">
+        <div class="entry-head">
+          <div class="entry-top">
+            <span class="version-tag">v1-sidebar</span>
+            <span class="date">Jun 25, 2026</span>
+            <span class="badge stable">Stable base</span>
+          </div>
+          <h2 class="entry-title">Utilitarian sidebar + map panel</h2>
+          <p class="entry-desc">
+            Apple HIG-inspired layout with a 320px sidebar showing day-by-day timeline
+            and a main map panel that updates with numbered pins when a day is selected.
+            Inline activity entry with toast feedback.
+          </p>
+          <div class="tags">
+            <span class="tag">Sidebar layout</span>
+            <span class="tag">Apple HIG</span>
+            <span class="tag">Map pins</span>
+            <span class="tag">Inline entry</span>
+            <span class="tag">System fonts</span>
+          </div>
+        </div>
+        <div class="entry-body">
+          <div class="section-label">Update log</div>
+          <ul class="changelog">
+            <li>Split-pane layout: 320px sidebar (day list) + flex main panel (map area)</li>
+            <li>Click day to expand → map shows numbered pins for that day's activities</li>
+            <li>Inline add-activity form per day with name + time fields</li>
+            <li>Toast feedback on add, day creation, and export action</li>
+            <li>Export button logs full itinerary to console (mock)</li>
+            <li>Pre-filled with 4-day Tokyo trip: Shinjuku → Shibuya → Asakusa → Kamakura</li>
+            <li>System font stack, #0071e3 accent, white cards — clean Apple HIG feel</li>
+          </ul>
+
+          <div class="section-label">Design stance</div>
+          <ul class="changelog">
+            <li><strong>Layout:</strong> Sidebar master-detail — itinerary is always visible, map is secondary</li>
+            <li><strong>Typography:</strong> System fonts only (SF Pro feel)</li>
+            <li><strong>Color:</strong> Apple HIG — white cards, blue accent, neutral grays</li>
+            <li><strong>Interaction:</strong> All-at-once — everything visible, no wizard steps</li>
+          </ul>
+
+          <div class="section-label">Links</div>
+          <div class="links">
+            <a class="link-btn primary" href="index.html" target="_blank">↗ Open prototype</a>
+            <a class="link-btn" href="warm.html" target="_blank">v2 · Warm stepwise (next)</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <footer>
+      Itinerary Builder · shad@tripwheel.io · Generated Jun 25, 2026<br>
+      Built as single-file HTML mockups — no frameworks, no build step.
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.entry').forEach(entry => {
+          if (filter === 'all') {
+            entry.classList.remove('hidden');
+          } else {
+            entry.classList.toggle('hidden', entry.dataset.type !== filter);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
