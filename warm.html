@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itinerary — plan your trip, gently</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf7f2;
+    --card: #fffdf9;
+    --card-hover: #fdf8f0;
+    --text: #3d3832;
+    --muted: #8a837c;
+    --accent: #7c9a7e;
+    --accent-strong: #5a7a5c;
+    --warm: #c17a5e;
+    --warm-light: #f5ede7;
+    --border: #e8e2d9;
+    --shadow: 0 1px 3px rgba(61, 56, 50, 0.06), 0 4px 16px rgba(61, 56, 50, 0.04);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  /* ── Progress ── */
+  .progress-wrap { margin-bottom: 32px; }
+  .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .progress-steps::before {
+    content: '';
+    position: absolute;
+    top: 14px; left: 24px; right: 24px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+  .progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 1;
+    flex: 1;
+  }
+  .progress-dot {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600;
+    color: var(--muted);
+    transition: all 0.3s ease;
+  }
+  .progress-step.done .progress-dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .progress-step.active .progress-dot {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(124, 154, 126, 0.15);
+  }
+  .progress-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .progress-step.active .progress-label { color: var(--accent-strong); font-weight: 600; }
+  .progress-step.done .progress-label { color: var(--accent); }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 40px;
+    border: 1px solid var(--border);
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* ── Form fields ── */
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .field .hint {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .field input, .field textarea, .field select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: var(--font-body);
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(124, 154, 126, 0.1);
+  }
+  .field textarea { min-height: 80px; }
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 28px;
+    border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: var(--accent-strong); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--bg); }
+  .btn-share {
+    background: var(--warm);
+    color: #fff;
+    font-size: 15px;
+    padding: 15px 36px;
+  }
+  .btn-share:hover { opacity: 0.9; transform: translateY(-1px); }
+  .actions {
+    display: flex; gap: 12px; margin-top: 32px;
+    justify-content: space-between;
+  }
+
+  /* ── Day cards (step 3) ── */
+  .day-list { margin-bottom: 24px; }
+  .day-card-item {
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .day-card-item:hover { border-color: var(--border); background: var(--card-hover); }
+  .day-card-item.active { border-color: var(--accent); background: var(--card); }
+  .day-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .day-number {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--warm-light);
+    color: var(--warm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    margin-right: 12px;
+  }
+  .day-title-wrap { display: flex; align-items: center; flex: 1; }
+  .day-title { font-size: 15px; font-weight: 600; }
+  .day-date { font-size: 12px; color: var(--muted); margin-left: 12px; }
+  .day-count { font-size: 12px; color: var(--muted); }
+  .day-activities { margin-top: 16px; display: none; }
+  .day-card-item.active .day-activities { display: block; }
+
+  .activity-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    font-size: 13px;
+    transition: background 0.15s;
+  }
+  .activity-row:hover { background: var(--card-hover); }
+  .act-time {
+    font-size: 12px; font-weight: 600;
+    color: var(--accent-strong);
+    min-width: 44px;
+  }
+  .act-name { flex: 1; font-weight: 500; }
+  .act-remove {
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: all 0.15s;
+    border: none;
+    background: none;
+  }
+  .act-remove:hover { color: #c44; background: #fff0f0; }
+
+  .add-activity-inline {
+    display: flex; gap: 8px; margin-top: 8px;
+  }
+  .add-activity-inline input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1.5px dashed var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    background: transparent;
+    font-family: var(--font-body);
+  }
+  .add-activity-inline input:focus { border-color: var(--accent); outline: none; }
+  .btn-tiny {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+  }
+  .btn-tiny:hover { background: var(--accent-strong); }
+
+  /* ── Review step ── */
+  .review-day {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .review-day:last-child { border-bottom: none; }
+  .review-day h3 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  .review-day .rd-date { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+  .review-act {
+    padding: 6px 0;
+    font-size: 14px;
+    display: flex; gap: 10px;
+  }
+  .review-act .ra-time { color: var(--accent-strong); font-weight: 600; min-width: 50px; }
+
+  .share-box {
+    background: var(--warm-light);
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    margin-top: 24px;
+    text-align: center;
+  }
+  .share-box .share-url {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--card);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    border: 1.5px solid var(--border);
+  }
+  .share-box .share-url span {
+    flex: 1;
+    font-size: 13px;
+    color: var(--accent-strong);
+    font-family: monospace;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .btn-copy {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border);
+    background: var(--card);
+    cursor: pointer;
+    font-size: 12px; font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .btn-copy:hover { background: var(--bg); }
+  .btn-copy.copied { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── Transitions ── */
+  .fade-in { animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Vibe selector ── */
+  .vibe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .vibe-option {
+    padding: 16px 12px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--card);
+    font-size: 24px;
+    line-height: 1.3;
+  }
+  .vibe-option:hover { border-color: var(--accent); background: var(--card-hover); }
+  .vibe-option.selected { border-color: var(--accent); background: rgba(124, 154, 126, 0.08); }
+  .vibe-label { font-size: 12px; font-weight: 600; color: var(--text); margin-top: 6px; display: block; }
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ── State ──
+let step = 1;
+const trip = {
+  name: '',
+  destination: '',
+  startDate: '',
+  endDate: '',
+  vibe: '',
+  days: []
+};
+
+// ── Render ──
+function render() {
+  const app = document.getElementById('app');
+  const steps = [1,2,3,4];
+  const labels = ['Basics', 'Days', 'Activities', 'Share'];
+
+  const progressHTML = `
+    <div class="progress-wrap">
+      <div class="progress-steps">
+        ${steps.map(s => `
+          <div class="progress-step ${s < step ? 'done' : ''} ${s === step ? 'active' : ''}">
+            <div class="progress-dot">${s < step ? '✓' : s}</div>
+            <div class="progress-label">${labels[s-1]}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  let cardHTML = '';
+  if (step === 1) {
+    cardHTML = renderStep1();
+  } else if (step === 2) {
+    cardHTML = renderStep2();
+  } else if (step === 3) {
+    cardHTML = renderStep3();
+  } else if (step === 4) {
+    cardHTML = renderStep4();
+  }
+
+  app.innerHTML = progressHTML + cardHTML;
+  app.classList.add('fade-in');
+  setTimeout(() => app.classList.remove('fade-in'), 400);
+}
+
+// ── Step 1: Basics ──
+function renderStep1() {
+  return `
+    <div class="card fade-in">
+      <h2>Where are you going?</h2>
+      <p class="subtitle">Just the essentials — we'll build the rest together.</p>
+      <div class="field">
+        <label>Trip name <span class="hint">(optional)</span></label>
+        <input type="text" id="trip-name" value="${esc(trip.name)}" placeholder="Spring in Kyoto, Summer Road Trip…" oninput="trip.name=this.value">
+      </div>
+      <div class="field">
+        <label>Destination</label>
+        <input type="text" id="trip-dest" value="${esc(trip.destination)}" placeholder="Tokyo, Japan" oninput="trip.destination=this.value">
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Start date</label>
+          <input type="date" id="trip-start" value="${trip.startDate}" onchange="trip.startDate=this.value">
+        </div>
+        <div class="field">
+          <label>End date</label>
+          <input type="date" id="trip-end" value="${trip.endDate}" onchange="trip.endDate=this.value">
+        </div>
+      </div>
+      <div class="field">
+        <label>Vibe</label>
+        <div class="vibe-grid">
+          ${['🌿 Relaxed','⚡ Active','🍜 Foodie','🎨 Cultural','🏕️ Adventure','💆 Wellness'].map(v => {
+            const emoji = v.split(' ')[0];
+            const label = v.split(' ').slice(1).join(' ');
+            const sel = trip.vibe === v ? ' selected' : '';
+            return `<div class="vibe-option${sel}" onclick="trip.vibe='${v}';render()">${emoji}<span class="vibe-label">${label}</span></div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="actions">
+        <div></div>
+        <button class="btn btn-primary" onclick="goNext()">Next →</button>
+      </div>
+    </div>
+  `;
+}
+
+// ── Step 2: Days ──
+function renderStep2() {
+  const hasDates = trip.startDate && trip.endDate;
+  const dayCount = hasDates ? daysBetween(trip.startDate, trip.endDate) + 1 : 0;
+
+  return `
+    <div class="card fade-in">
+      <h2>Your days</h2>
+      <p class="subtitle">${hasDates
+        ? `${dayCount} days from ${formatDate(trip.startDate)} to ${formatDate(trip.endDate)}`
+        : 'Set dates in step 1 to auto-generate days, or add them manually.'}</p>
+
+      <div class="day-list" id="day-list">
+        ${trip.days.length === 0 ? '<p style="color:var(--muted);font-size:14px;text-align:center;padding:24px 0">No days yet. Add your first day below.</p>' : ''}
+        ${trip.days.map((d, i) => `
+          <div class="day-card-item" style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="day-number">${i+1}</div>
+              <div>
+                <div style="font-size:14px;font-weight:600">Day ${i+1}${d.label ? ': ' + esc(d.label) : ''}</div>
+                <div style="font-size:12px;color:var(--muted)">${d.date || 'No date'} · ${d.activities.length} activities</div>
+              </div>
+            </div>
+            <button class="act-remove" onclick="removeDay(${i})">✕</button>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="add-activity-inline" style="margin-top:12px">
+        <input type="text" id="day-label-input" placeholder="Day label (e.g. Arrival, Day trip to…)" onkeydown="if(event.key==='Enter')addDay()">
+        <button class="btn-tiny" onclick="addDay()">+ Add day</button>
+      </div>
+
+      ${hasDates && trip.days.length === 0 ? `
+        <button class="btn btn-secondary" style="margin-top:12px;width:100%;justify-content:center" onclick="autoGenerateDays()">
+          ✨ Auto-generate ${dayCount} days from dates
+        </button>
+      ` : ''}
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="step=1;render()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()" ${trip.days.length === 0 ? 'disabled style="opacity:0.4;cursor:not-allowed"' : ''}>Next →</button>
+      </div>
+    </div>
+  `;
+}
+
+// ── Step 3: Activities ──
+let activeDayIndex = 0;
+
+function renderStep3() {
+  if (trip.days.length === 0) { step = 2; render(); return ''; }
+
+  return `
+    <div class="card fade-in">
+      <h2>What will you do?</h2>
+      <p class="subtitle">Tap a day to add activities. Build it up one day at a time.</p>
+
+      <div class="day-list" id="day-list-3">
+        ${trip.days.map((d, i) => {
+          const isActive = i === activeDayIndex;
+          return `
+            <div class="day-card-item ${isActive ? 'active' : ''}" id="day-item-${i}">
+              <div class="day-card-header" onclick="activeDayIndex=${i};render()">
+                <div class="day-title-wrap">
+                  <div class="day-number">${i+1}</div>
+                  <span class="day-title">Day ${i+1}${d.label ? ': ' + esc(d.label) : ''}</span>
+                  <span class="day-date">${d.date || ''}</span>
+                </div>
+                <span class="day-count">${d.activities.length} items</span>
+              </div>
+              <div class="day-activities" style="${isActive ? 'display:block' : ''}">
+                ${d.activities.map((a, ai) => `
+                  <div class="activity-row">
+                    <span class="act-time">${a.time || '—'}</span>
+                    <span class="act-name">${esc(a.name)}</span>
+                    <button class="act-remove" onclick="event.stopPropagation();removeActivity(${i},${ai})">✕</button>
+                  </div>
+                `).join('')}
+                ${d.activities.length === 0 ? '<p style="color:var(--muted);font-size:13px;padding:8px 0">No activities yet</p>' : ''}
+                <div class="add-activity-inline">
+                  <input type="text" id="act-name-${i}" placeholder="Activity name…" onkeydown="if(event.key==='Enter')addActivity(${i})">
+                  <input type="text" id="act-time-${i}" placeholder="10:00" style="max-width:80px" onkeydown="if(event.key==='Enter')addActivity(${i})">
+                  <button class="btn-tiny" onclick="addActivity(${i})">Add</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="step=2;render()">← Back</button>
+        <button class="btn btn-primary" onclick="goNext()">Review →</button>
+      </div>
+    </div>
+  `;
+}
+
+// ── Step 4: Review & Share ──
+function renderStep4() {
+  const totalActs = trip.days.reduce((s, d) => s + d.activities.length, 0);
+  const shareUrl = `https://tripwheel.io/share/${btoa(JSON.stringify(trip)).substring(0, 24)}`;
+
+  return `
+    <div class="card fade-in">
+      <h2>Your itinerary</h2>
+      <p class="subtitle">${trip.days.length} days · ${totalActs} activities · ${trip.vibe ? trip.vibe : ''}</p>
+
+      ${trip.days.map((d, i) => `
+        <div class="review-day">
+          <h3>Day ${i+1}${d.label ? ': ' + esc(d.label) : ''}</h3>
+          <div class="rd-date">${d.date || 'Date TBD'}</div>
+          ${d.activities.map(a => `
+            <div class="review-act">
+              <span class="ra-time">${a.time || '—'}</span>
+              <span>${esc(a.name)}</span>
+            </div>
+          `).join('')}
+          ${d.activities.length === 0 ? '<p style="color:var(--muted);font-size:13px">Free day — nothing planned</p>' : ''}
+        </div>
+      `).join('')}
+
+      <div class="share-box">
+        <p style="font-size:14px;font-weight:600">✨ Share this itinerary</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:4px">Anyone with this link can view your trip plan.</p>
+        <div class="share-url">
+          <span id="share-url-text">${shareUrl}</span>
+          <button class="btn-copy" id="btn-copy" onclick="copyShareLink()">Copy</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="step=3;render()">← Edit</button>
+        <button class="btn btn-share" onclick="copyShareLink()">🔗 Copy share link</button>
+      </div>
+    </div>
+  `;
+}
+
+// ── Actions ──
+function goNext() {
+  if (step === 1 && !trip.destination) {
+    toast('Please enter a destination');
+    return;
+  }
+  if (step === 2 && trip.days.length === 0) {
+    toast('Add at least one day');
+    return;
+  }
+  step = Math.min(4, step + 1);
+  if (step === 3 && trip.days.length > 0) activeDayIndex = 0;
+  render();
+}
+
+function addDay() {
+  const labelInput = document.getElementById('day-label-input');
+  const label = labelInput ? labelInput.value.trim() : '';
+  const dayNum = trip.days.length + 1;
+  let date = '';
+  if (trip.startDate && trip.days.length < daysBetween(trip.startDate, trip.endDate) + 1) {
+    const d = new Date(trip.startDate);
+    d.setDate(d.getDate() + trip.days.length);
+    date = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+  trip.days.push({ label, date, activities: [] });
+  if (labelInput) labelInput.value = '';
+  render();
+  if (step === 2) {
+    setTimeout(() => document.getElementById('day-label-input')?.focus(), 100);
+  }
+}
+
+function removeDay(i) {
+  trip.days.splice(i, 1);
+  if (activeDayIndex >= trip.days.length) activeDayIndex = Math.max(0, trip.days.length - 1);
+  render();
+}
+
+function autoGenerateDays() {
+  const count = daysBetween(trip.startDate, trip.endDate) + 1;
+  trip.days = [];
+  for (let i = 0; i < count; i++) {
+    const d = new Date(trip.startDate);
+    d.setDate(d.getDate() + i);
+    trip.days.push({
+      label: '',
+      date: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      activities: []
+    });
+  }
+  render();
+  toast(`${count} days generated`);
+}
+
+function addActivity(dayIndex) {
+  const nameInput = document.getElementById(`act-name-${dayIndex}`);
+  const timeInput = document.getElementById(`act-time-${dayIndex}`);
+  const name = nameInput ? nameInput.value.trim() : '';
+  if (!name) { toast('Enter an activity name'); return; }
+  const time = timeInput ? timeInput.value.trim() : '';
+  trip.days[dayIndex].activities.push({ name, time });
+  if (nameInput) nameInput.value = '';
+  if (timeInput) timeInput.value = '';
+  render();
+  // Re-focus
+  setTimeout(() => {
+    const ni = document.getElementById(`act-name-${dayIndex}`);
+    if (ni) ni.focus();
+  }, 100);
+}
+
+function removeActivity(dayIndex, actIndex) {
+  trip.days[dayIndex].activities.splice(actIndex, 1);
+  render();
+}
+
+function copyShareLink() {
+  const url = document.getElementById('share-url-text').textContent;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('btn-copy');
+    if (btn) { btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000); }
+    toast('Share link copied!');
+  }).catch(() => toast('Could not copy — select and copy manually'));
+}
+
+// ── Helpers ──
+function daysBetween(d1, d2) {
+  return Math.round((new Date(d2) - new Date(d1)) / 86400000);
+}
+function formatDate(d) {
+  return new Date(d + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(el._tid); el._tid = setTimeout(() => el.classList.remove('show'), 2200);
+}
+function init() {
+  // Pre-fill for demo
+  trip.name = 'Spring in Tokyo';
+  trip.destination = 'Tokyo, Japan';
+  trip.startDate = '2026-04-03';
+  trip.endDate = '2026-04-09';
+  trip.vibe = '🍜 Foodie';
+  autoGenerateDays();
+  // Add some sample activities
+  trip.days[0].activities = [
+    { time: '14:30', name: 'Check in — Hotel Gracery Shinjuku' },
+    { time: '16:00', name: 'Shinjuku Gyoen cherry blossoms' },
+    { time: '19:00', name: 'Dinner at Omoide Yokocho' },
+  ];
+  trip.days[1].activities = [
+    { time: '09:00', name: 'Shibuya Crossing' },
+    { time: '11:00', name: 'Meiji Jingu Shrine' },
+  ];
+  trip.days[2].activities = [
+    { time: '10:00', name: 'Senso-ji Temple' },
+    { time: '13:00', name: 'Ramen at Ichiran' },
+  ];
+  render();
+}
+init();
+</script>
+</body>
+</html>
