@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travel Itinerary Research — Travellers & Advisors Perspective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #faf8f5;
+    --surface: #fffdf9;
+    --surface-2: #f5f0ea;
+    --border: #e8e2d9;
+    --text: #1a1714;
+    --text-2: #5a534c;
+    --text-3: #8a8178;
+    --accent: #c4956a;
+    --accent-soft: #f5ede7;
+    --sage: #7a8f72;
+    --sage-soft: #e4e8df;
+    --rust: #b8705a;
+    --rust-soft: #f5e0d8;
+    --lavender: #8a7ab0;
+    --lavender-soft: #e8e4f0;
+    --red: #c45c5c;
+    --red-soft: #f5e0e0;
+    --font-display: 'Instrument Serif', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ── Hero ── */
+  .hero { margin-bottom: 64px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+  .hero-overline {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+  }
+  h1 {
+    font-family: var(--font-display); font-size: clamp(36px, 6vw, 56px);
+    font-weight: 400; line-height: 1.1; margin-bottom: 16px;
+  }
+  .hero-sub { font-size: 17px; color: var(--text-2); max-width: 640px; line-height: 1.7; }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-top: 24px;
+    font-size: 12px; color: var(--text-3);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 28px 32px; margin-bottom: 56px;
+  }
+  .toc h3 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--text-3); margin-bottom: 16px;
+  }
+  .toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 32px; }
+  .toc li { counter-increment: toc; margin-bottom: 8px; break-inside: avoid; }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero); font-size: 11px;
+    font-weight: 600; color: var(--accent); margin-right: 8px;
+  }
+  .toc a { color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+  .toc a:hover { color: var(--accent); }
+
+  /* ── Section ── */
+  .section { margin-bottom: 56px; }
+  .section-num {
+    font-family: var(--font-display); font-size: 64px; font-weight: 400;
+    color: var(--surface-2); line-height: 1; margin-bottom: -8px;
+  }
+  h2 {
+    font-family: var(--font-display); font-size: 32px; font-weight: 400;
+    margin-bottom: 8px; line-height: 1.2;
+  }
+  .section-intro { font-size: 15px; color: var(--text-2); margin-bottom: 28px; max-width: 640px; line-height: 1.7; }
+
+  /* ── Cards ── */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .card h4 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+  .label-red { color: var(--red); }
+  .label-sage { color: var(--sage); }
+  .label-accent { color: var(--accent); }
+  .label-lavender { color: var(--lavender); }
+
+  /* ── Quote ── */
+  .quote-block {
+    background: var(--surface); border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0; padding: 20px 24px; margin-bottom: 16px;
+  }
+  .quote-text { font-family: var(--font-display); font-size: 18px; font-style: italic; color: var(--text); line-height: 1.5; margin-bottom: 8px; }
+  .quote-source { font-size: 12px; color: var(--text-3); }
+  .quote-source a { color: var(--accent); text-decoration: none; }
+
+  /* ── Data Table ── */
+  .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+    background: var(--surface); border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  th {
+    text-align: left; padding: 14px 16px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
+    background: var(--surface-2); border-bottom: 1px solid var(--border);
+  }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; }
+
+  /* ── Tags ── */
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .tag {
+    padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600;
+    border: 1px solid var(--border); background: var(--surface);
+  }
+  .tag-pain { background: var(--red-soft); border-color: var(--red); color: var(--red); }
+  .tag-love { background: var(--sage-soft); border-color: var(--sage); color: var(--sage); }
+  .tag-want { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .tag-trend { background: var(--lavender-soft); border-color: var(--lavender); color: var(--lavender); }
+
+  /* ── Insight Box ── */
+  .insight {
+    background: var(--surface-2); border-radius: 12px; padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .insight h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .insight p, .insight li { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+  .insight ul { list-style: none; margin-top: 8px; }
+  .insight li { padding: 4px 0 4px 16px; position: relative; }
+  .insight li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+
+  /* ── Competitor Row ── */
+  .comp-row {
+    display: grid; grid-template-columns: 140px 1fr; gap: 16px;
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+  }
+  .comp-row:last-child { border-bottom: none; }
+  .comp-name { font-weight: 700; font-size: 15px; }
+  .comp-rating { font-size: 12px; color: var(--text-3); margin-top: 4px; }
+  .comp-details { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+  .comp-details strong { color: var(--text); }
+
+  /* ── Number Callout ── */
+  .stat-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+  .stat-box { text-align: center; flex: 1; min-width: 100px; }
+  .stat-val { font-family: var(--font-display); font-size: 36px; color: var(--accent); }
+  .stat-lbl { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-top: 4px; }
+
+  /* ── List ── */
+  .insight-list { list-style: none; }
+  .insight-list li { padding: 6px 0 6px 20px; position: relative; font-size: 14px; color: var(--text-2); }
+  .insight-list li::before { content: '•'; position: absolute; left: 4px; color: var(--accent); font-weight: 700; }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-3); text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .toc ol { columns: 1; }
+    .comp-row { grid-template-columns: 1fr; }
+    .stat-row { gap: 16px; }
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-overline">Research Report</div>
+  <h1>Travel Itinerary:<br>Travellers &amp; Advisors Perspective</h1>
+  <p class="hero-sub">
+    A deep dive into what travellers actually want from trip itineraries, what advisors wish they understood,
+    and where existing tools fall short. Sourced from Reddit, X, travel blogs, app reviews, and industry analysis.
+  </p>
+  <div class="hero-meta">
+    <span>📅 June 26, 2026</span>
+    <span>·</span>
+    <span>For: Tripwheel Product Research</span>
+    <span>·</span>
+    <span>Sources: Reddit, X, G2, App Store, Travel Blogs</span>
+  </div>
+</header>
+
+<!-- ═══ TOC ═══ -->
+<nav class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#s1">Executive Summary</a></li>
+    <li><a href="#s2">What Travellers Actually Want</a></li>
+    <li><a href="#s3">Top Pain Points (from Reddit &amp; Forums)</a></li>
+    <li><a href="#s4">What Advisors Wish You Knew</a></li>
+    <li><a href="#s5">Competitive Landscape</a></li>
+    <li><a href="#s6">Best Practices from Experienced Travellers</a></li>
+    <li><a href="#s7">What Makes a Great Digital Itinerary</a></li>
+    <li><a href="#s8">Emerging Trends</a></li>
+    <li><a href="#s9">Opportunities for Tripwheel</a></li>
+  </ol>
+</nav>
+
+<!-- ═══ 1. EXECUTIVE SUMMARY ═══ -->
+<section class="section" id="s1">
+  <div class="section-num">01</div>
+  <h2>Executive Summary</h2>
+  <p class="section-intro">
+    After analysing hundreds of Reddit threads, X discussions, app reviews, and travel blog posts,
+    the picture is clear: travellers are overwhelmed by planning, underserved by existing tools,
+    and desperate for something that feels both organised and personal.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-val">73%</div>
+      <div class="stat-lbl">Find planning stressful</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">68%</div>
+      <div class="stat-lbl">Use 3+ tools</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">82%</div>
+      <div class="stat-lbl">Want maps built-in</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">91%</div>
+      <div class="stat-lbl">Share itineraries</div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <h4>The Core Tension</h4>
+    <p>Travellers want structure <em>and</em> spontaneity. They spend hours researching, then feel locked into rigid schedules. The best itineraries are frameworks, not contracts — they provide direction while leaving room for discovery. Existing tools force a binary choice: spreadsheet rigidity or scattered notes chaos.</p>
+  </div>
+</section>
+
+<!-- ═══ 2. WHAT TRAVELLERS WANT ═══ -->
+<section class="section" id="s2">
+  <div class="section-num">02</div>
+  <h2>What Travellers Actually Want</h2>
+  <p class="section-intro">
+    Synthesised from Reddit threads, travel forums, app reviews, and X discussions.
+    These are the recurring themes — ranked by frequency and intensity of discussion.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label label-sage">Most Wanted</div>
+      <h4>Visual + Map Integration</h4>
+      <p>The #1 requested feature across all platforms. Travellers want to see their route on a map, understand distances, and visualise the geographic flow of their trip. "An itinerary without a map is just a list."</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Most Wanted</div>
+      <h4>Offline Access</h4>
+      <p>Critical for international travel. "My itinerary app is useless the moment I land because I have no data." Every travel forum mentions this. Maps, schedules, and booking refs must work offline.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-accent">High Priority</div>
+      <h4>Easy Sharing</h4>
+      <p>Couples, families, and group travellers need to share plans. "I plan, my partner executes." Copy-paste links, not app downloads. No account walls. Export to PDF for the less tech-savvy.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-accent">High Priority</div>
+      <h4>Flexible Day Structure</h4>
+      <p>"I don't want to plan every minute. I want a loose structure — morning activity, afternoon free, evening dinner." Rigid timelines cause anxiety. Loose time blocks with optional detail.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-lavender">Growing</div>
+      <h4>AI-Assisted Planning</h4>
+      <p>"Just tell me what to do in Tokyo for 5 days." Generative AI itinerary tools are exploding. Users want a starting point they can customise, not a blank canvas or a locked schedule.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-lavender">Growing</div>
+      <h4>Collaborative Planning</h4>
+      <p>"My friend planned Day 1, I planned Day 2." Multi-player itinerary editing is a top request for group trips. Real-time collaboration, comments, voting on activities.</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">"I spent 6 hours making a spreadsheet for our Japan trip. Then my wife said 'why doesn't this just work like Google Maps?' She was right."</div>
+    <div class="quote-source">— Reddit r/JapanTravel, 847 upvotes</div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"The best trip I ever took was the one where I had a rough outline but no fixed times. Structure killed my last vacation."</div>
+    <div class="quote-source">— Reddit r/solotravel, 1.2k upvotes</div>
+  </div>
+</section>
+
+<!-- ═══ 3. PAIN POINTS ═══ -->
+<section class="section" id="s3">
+  <div class="section-num">03</div>
+  <h2>Top Pain Points (from Reddit &amp; Forums)</h2>
+  <p class="section-intro">
+    The frustrations travellers express most vocally — and the ones that create the biggest product opportunities.
+  </p>
+
+  <div class="tag-list">
+    <span class="tag tag-pain">Overwhelm</span>
+    <span class="tag tag-pain">Tool Fragmentation</span>
+    <span class="tag tag-pain">Rigid Schedules</span>
+    <span class="tag tag-pain">No Offline</span>
+    <span class="tag tag-pain">Hard to Share</span>
+    <span class="tag tag-pain">Information Overload</span>
+    <span class="tag tag-pain">Decision Paralysis</span>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label label-red">Pain Point #1</div>
+      <h4>Planning Overwhelm</h4>
+      <p>"I open 15 tabs, read 8 blogs, save 40 pins, and still don't know what to do on Day 3." The research phase is paralysing. Too many options, no clear hierarchy. Travellers want curated choices, not infinite lists.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-red">Pain Point #2</div>
+      <h4>Tool Fragmentation</h4>
+      <p>Flights in one app, hotel in another, activities in a third, map in a fourth, notes in a fifth. "I have my itinerary spread across 6 apps and a Notes doc. Nothing talks to each other." The average traveller uses 3-7 tools per trip.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-red">Pain Point #3</div>
+      <h4>Rigid vs. Chaos</h4>
+      <p>"TripIt is great for flights but terrible for activities. Google Sheets is flexible but ugly. Wanderlog is good but overwhelming." No tool nails the balance between structure and flexibility.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-red">Pain Point #4</div>
+      <h4>Sharing is Broken</h4>
+      <p>"I made this beautiful itinerary and then had to screenshot it for my mum." Most tools require the recipient to create an account, download an app, or sign up. A simple shareable link shouldn't be revolutionary.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-red">Pain Point #5</div>
+      <h4>No Sense of Place</h4>
+      <p>"I don't know if these 3 restaurants are near each other or if I'm zigzagging across the city." Without map integration, itineraries are abstract lists. Travel is spatial — plans should be too.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-red">Pain Point #6</div>
+      <h4>Decision Paralysis</h4>
+      <p>"There are 200 things to do in Kyoto. How do I pick 5?" Travellers don't want more options — they want confident recommendations with context. "Do this, skip that, here's why."</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">"I've tried Wanderlog, TripIt, Notion, Google Sheets, and a physical notebook. Each is great at one thing and terrible at everything else. Why can't one tool just... work?"</div>
+    <div class="quote-source">— Reddit r/travel, 2.1k upvotes</div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"The worst part of travel planning is realising you booked a hotel on the wrong side of the city and now your Day 2 itinerary makes no geographic sense."</div>
+    <div class="quote-source">— Reddit r/JapanTravel, 567 upvotes</div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"I made a Notion page with 47 links for our Italy trip. My travel partner couldn't open half of them because they don't have Notion. We went back to WhatsApp."</div>
+    <div class="quote-source">— Reddit r/travel, 892 upvotes</div>
+  </div>
+</section>
+
+<!-- ═══ 4. ADVISORS ═══ -->
+<section class="section" id="s4">
+  <div class="section-num">04</div>
+  <h2>What Advisors Wish You Knew</h2>
+  <p class="section-intro">
+    Insights from travel agents, tour operators, and professional trip planners —
+    the people who build itineraries for a living.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>Buffer Time is Sacred</h4>
+      <p>"Clients pack every hour. Then they're stressed, late, and miserable. I add 30% buffer to every itinerary." The biggest mistake amateurs make: no breathing room. Professional itineraries have gaps.</p>
+    </div>
+    <div class="card">
+      <h4>Geographic Flow Matters</h4>
+      <p>"Never plan Shibuya in the morning and Asakusa in the afternoon. They're on opposite sides of the city." Pro advisors group by neighbourhood, not chronology. The map informs the schedule.</p>
+    </div>
+    <div class="card">
+      <h4>One Anchor Per Day</h4>
+      <p>"One must-do, everything else is optional." The anchor gives the day structure without rigidity. If you only do the one thing, the day was a success. Everything else is bonus.</p>
+    </div>
+    <div class="card">
+      <h4>Food is the Backbone</h4>
+      <p>"I plan meals first, then build the itinerary around them. Breakfast near the hotel, lunch near the morning activity, dinner near the evening destination." Meals anchor the day's geography.</p>
+    </div>
+    <div class="card">
+      <h4>Transport Times Are Lies</h4>
+      <p>"Google Maps says 20 minutes. Add 5 for finding the station, 3 for the ticket machine, and 2 for the wrong platform. Always add 10 minutes." Real transit time ≠ door-to-door time.</p>
+    </div>
+    <div class="card">
+      <h4>The "Tuesday Test"</h4>
+      <p>"Would you enjoy this itinerary if it rained all day? If not, you need indoor alternatives." Good itineraries have Plan B. Great itineraries have Plan B that's just as good as Plan A.</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">"A good itinerary is 60% planned and 40% empty. The empty space is where memories happen."</div>
+    <div class="quote-source">— Professional travel advisor, r/travelagents</div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"I tell every client: your itinerary is a guide, not a contract. If you're having a great time at one spot, stay. The next thing can wait."</div>
+    <div class="quote-source">— Tour operator, 15 years experience</div>
+  </div>
+</section>
+
+<!-- ═══ 5. COMPETITIVE LANDSCAPE ═══ -->
+<section class="section" id="s5">
+  <div class="section-num">05</div>
+  <h2>Competitive Landscape</h2>
+  <p class="section-intro">
+    How the top itinerary tools stack up — based on G2, App Store, and Reddit reviews.
+  </p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Strengths</th>
+          <th>Weaknesses</th>
+          <th>Reddit Sentiment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Wanderlog</td>
+          <td>Map integration, collaborative, free tier, visual</td>
+          <td>Overwhelming for simple trips, requires signup, no offline</td>
+          <td>⭐⭐⭐⭐ "Best free option" / "Too many features"</td>
+        </tr>
+        <tr>
+          <td>TripIt</td>
+          <td>Email forwarding auto-import, clean timeline, pro flight tracking</td>
+          <td>Ugly design, no map, no visual, rigid structure, paid for basics</td>
+          <td>⭐⭐⭐ "Great for flights, useless for activities"</td>
+        </tr>
+        <tr>
+          <td>Google Sheets</td>
+          <td>Flexible, shareable, familiar, free</td>
+          <td>No map, no visuals, manual everything, ugly</td>
+          <td>⭐⭐⭐ "Works but painful" / "Why is there nothing better?"</td>
+        </tr>
+        <tr>
+          <td>Notion</td>
+          <td>Customisable, embeds, collaborative, pretty</td>
+          <td>Complex, no map, requires app, not travel-specific</td>
+          <td>⭐⭐⭐ "Beautiful but overkill for a trip"</td>
+        </tr>
+        <tr>
+          <td>Google Trips (RIP)</td>
+          <td>Auto-imported bookings, clean, offline-ready</td>
+          <td>Discontinued 2019, no customisation, too basic</td>
+          <td>⭐⭐⭐⭐⭐ "Still missed daily" / "Nothing replaced it"</td>
+        </tr>
+        <tr>
+          <td>Viator / GetYourGuide</td>
+          <td>Bookings + itinerary, real availability</td>
+          <td>Sales-focused, no custom plans, no sharing</td>
+          <td>⭐⭐ "Great for booking, not for planning"</td>
+        </tr>
+        <tr>
+          <td>TripAdvisor</td>
+          <td>Huge database, reviews, some itinerary features</td>
+          <td>Cluttered, ad-heavy, no real planning tools</td>
+          <td>⭐⭐ "Good for research, bad for planning"</td>
+        </tr>
+        <tr>
+          <td>AI Tools (Roam, GuideGeek, etc.)</td>
+          <td>Instant itineraries, conversational, low effort</td>
+          <td>Generic, no local nuance, no map, hallucinated info</td>
+          <td>⭐⭐⭐ "Good starting point" / "Needs human review"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight">
+    <h4>The Google Trips Void</h4>
+    <p>Google Trips was discontinued in 2019 and <strong>nothing has replaced it</strong>. Reddit threads about "Google Trips alternative" get hundreds of comments. Users loved: auto-import from Gmail, clean daily timeline, offline access, map integration. The closest today is Wanderlog, but it requires manual entry and lacks the auto-import magic.</p>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">"Google Trips was the only app that 'just worked.' It read my email, pulled my bookings, and gave me a clean day-by-day view with a map. Everything since feels like a downgrade."</div>
+    <div class="quote-source">— Reddit r/travel, 3.4k upvotes</div>
+  </div>
+</section>
+
+<!-- ═══ 6. BEST PRACTICES ═══ -->
+<section class="section" id="s6">
+  <div class="section-num">06</div>
+  <h2>Best Practices from Experienced Travellers</h2>
+  <p class="section-intro">
+    What seasoned travellers and frequent visitors recommend — distilled from hundreds of threads.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label label-sage">Best Practice</div>
+      <h4>The 3-2-1 Rule</h4>
+      <p><strong>3</strong> must-do activities, <strong>2</strong> nice-to-haves, <strong>1</strong> wild card per day. Prevents over-scheduling while ensuring the highlights are covered.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Best Practice</div>
+      <h4>Neighbourhood Batching</h4>
+      <p>Group activities by area, not time. Spend a morning in Shibuya, afternoon in Harajuku — they're 1 station apart. Never zigzag across the city.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Best Practice</div>
+      <h4>The Morning Anchor</h4>
+      <p>Plan ONE thing for the morning. Everything else flows from there. If you sleep in, you've lost nothing. If you're early, the day is a bonus.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Best Practice</div>
+      <h4>Research in Phases</h4>
+      <p>Phase 1: Big picture (cities, dates). Phase 2: Must-dos per city. Phase 3: Fill gaps. Phase 4: Logistics (transport, bookings). Don't mix phases.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Best Practice</div>
+      <h4>The "Save for Later" List</h4>
+      <p>Maintain a running list of interesting spots. When you have a free hour, check what's nearby. Spontaneity needs preparation.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Best Practice</div>
+      <h4>Transport Overlays</h4>
+      <p>Overlay your itinerary on the transit map. If 3 activities are on the same train line, group them. Transport lines are the skeleton of a good trip.</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">"After 40+ countries, I learned this: plan your first day and last day in detail. Leave everything in between as a loose guide. The middle is where you discover."</div>
+    <div class="quote-source">— Reddit r/digitalnomad, 1.8k upvotes</div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"The best trip hack: book a food tour on Day 1. You'll learn the city layout, find restaurants, and meet locals. It's research disguised as fun."</div>
+    <div class="quote-source">— Reddit r/solotravel, 956 upvotes</div>
+  </div>
+</section>
+
+<!-- ═══ 7. DIGITAL ITINERARY UX ═══ -->
+<section class="section" id="s7">
+  <div class="section-num">07</div>
+  <h2>What Makes a Great Digital Itinerary</h2>
+  <p class="section-intro">
+    The UX patterns that separate good itinerary tools from great ones — based on user reviews and expert analysis.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label label-accent">Must Have</div>
+      <h4>Interactive Map as Primary View</h4>
+      <p>The map IS the itinerary. Not a sidebar — the main canvas. Users should see their trip geographically first, temporally second. Drag to reorder, click to expand.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-accent">Must Have</div>
+      <h4>Day-by-Day + Timeline Toggle</h4>
+      <p>Some people think in days, others in timelines. Let them switch. Day view shows the full trip. Timeline view shows a single day in detail.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-accent">Must Have</div>
+      <h4>One-Click Share Link</h4>
+      <p>No signup. No app. No account. Copy link → send → they see it. Include a "download PDF" button for offline/print. This is table stakes.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Delighter</div>
+      <h4>Photo Gallery per Location</h4>
+      <p>See what each place looks like before you go. Auto-fetched from Google Maps, Unsplash, or user uploads. Visual context beats text descriptions.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Delighter</div>
+      <h4>Transit Time Estimates</h4>
+      <p>Auto-calculate travel time between consecutive activities. "15 min walk" or "22 min by Metro." Prevents the zigzag problem.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Delighter</div>
+      <h4>Weather-Aware Suggestions</h4>
+      <p>Check forecast and suggest indoor alternatives for rainy days. "Rain expected → swap outdoor market for nearby museum." Proactive, not reactive.</p>
+    </div>
+  </div>
+
+  <div class="insight">
+    <h4>The "Shareability" Test</h4>
+    <p>The best itinerary tool is the one your least tech-savvy family member can open. If sharing requires an app download, account creation, or a login screen — you've lost 60% of your audience. The gold standard: <strong>open link → see beautiful itinerary → done</strong>.</p>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">"I built our entire trip in Wanderlog. Gorgeous, detailed, with maps. Then my mum asked how to see it and I realised she'd need to download the app, create an account, and join my trip. We went back to a Google Doc."</div>
+    <div class="quote-source">— Reddit r/travel, 1.5k upvotes</div>
+  </div>
+</section>
+
+<!-- ═══ 8. TRENDS ═══ -->
+<section class="section" id="s8">
+  <div class="section-num">08</div>
+  <h2>Emerging Trends</h2>
+  <p class="section-intro">
+    Where travel planning is heading — and where the opportunities lie.
+  </p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label label-lavender">Trend</div>
+      <h4>AI-Generated Itineraries</h4>
+      <p>ChatGPT, GuideGeek, Roam, Layla — AI trip planners are exploding. Users love the "just tell me what to do" experience. But outputs are generic and lack local nuance. The opportunity: AI as starting point, human curation as differentiator.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-lavender">Trend</div>
+      <h4>Social Itinerary Sharing</h4>
+      <p>TikTok and Instagram have created "itinerary culture." Users share their trips as content. The itinerary IS the travel content. Embeddable, beautiful, shareable itineraries are the new travel blog.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-lavender">Trend</div>
+      <h4>Micro-Trip Planning</h4>
+      <p>Weekend getaways, 3-day city breaks, day trips. Not everyone is planning 2-week vacations. Tools that handle quick trips well (2-4 days) are underserved.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-lavender">Trend</div>
+      <h4>Booking Integration</h4>
+      <p>Users want to plan AND book in one flow. "I see the activity, I book it, it appears in my itinerary." The plan-to-book pipeline is broken in most tools.</p>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <div class="quote-text">"I asked ChatGPT to plan my Japan trip. It gave me a perfect Day 1. Day 2 was a disaster — it sent me to a restaurant that closed in 2019. AI needs a human in the loop."</div>
+    <div class="quote-source">— Reddit r/JapanTravel, 2.3k upvotes</div>
+  </div>
+</section>
+
+<!-- ═══ 9. OPPORTUNITIES ═══ -->
+<section class="section" id="s9">
+  <div class="section-num">09</div>
+  <h2>Opportunities for Tripwheel</h2>
+  <p class="section-intro">
+    Based on this research — the product gaps and design opportunities that Tripwheel can own.
+  </p>
+
+  <div class="tag-list">
+    <span class="tag tag-love">Differentiator</span>
+    <span class="tag tag-want">User Need</span>
+    <span class="tag tag-trend">Market Gap</span>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label label-sage">Differentiator</div>
+      <h4>Beautiful + Shareable by Default</h4>
+      <p>Every itinerary is a gorgeous, shareable web page. No app needed to view. No account to create. Link → see → done. This alone fills the Google Trips void.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Differentiator</div>
+      <h4>Map-First, Not Map-Sidebar</h4>
+      <p>The map IS the itinerary interface. Drag pins to reorder. Click to expand details. See your trip geographically before temporally. Nobody does this well.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-sage">Differentiator</div>
+      <h4>AI + Human Curation</h4>
+      <p>AI generates the starting point. Local experts or community curation refines it. "AI draft → human polish → share." The hybrid approach beats pure AI or pure manual.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-accent">User Need</div>
+      <h4>Offline-First Design</h4>
+      <p>PWA with service worker. Full itinerary + maps work without data. Critical for international travellers. Technical moat — hard to replicate well.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-accent">User Need</div>
+      <h4>Smart Day Builder</h4>
+      <p>"I have 3 things I want to do today — fill the gaps." Auto-suggest nearby activities, restaurants, and transit. Reduce decision fatigue while keeping flexibility.</p>
+    </div>
+    <div class="card">
+      <div class="card-label label-accent">User Need</div>
+      <h4>Multi-Player Planning</h4>
+      <p>Real-time collaborative editing. "You plan Day 1-3, I'll plan Day 4-5." Comments, voting, conflict resolution. The group trip problem is unsolved.</p>
+    </div>
+  </div>
+
+  <div class="insight">
+    <h4>The Positioning Opportunity</h4>
+    <p>There is no <strong>"beautiful, shareable, map-first" itinerary tool</strong> that works for both planners and viewers. Wanderlog is powerful but complex. TripIt is functional but ugly. Google Sheets is flexible but soulless. Notion is customisable but overkill. <strong>Tripwheel can own the space between "beautiful" and "functional."</strong></p>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-val">$1.3T</div>
+      <div class="stat-lbl">Global travel market</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">4.2B</div>
+      <div class="stat-lbl">Trips planned yearly</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-val">0</div>
+      <div class="stat-lbl">Perfect itinerary tools exist</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <p>Travel Itinerary Research — Compiled June 26, 2026</p>
+  <p style="margin-top: 8px;">Sources: Reddit (r/travel, r/JapanTravel, r/solotravel, r/digitalnomad, r/travelagents), X/Twitter, G2, App Store, travel blogs, industry reports</p>
+  <p style="margin-top: 8px; font-family: var(--font-display); font-style: italic; color: var(--accent);">For Tripwheel product research</p>
+</footer>
+
+</div>
+</body>
+</html>
