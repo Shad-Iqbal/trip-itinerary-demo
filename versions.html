@@ -32,9 +32,7 @@
       --r-lg: 12px;
       --r-xl: 16px;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
@@ -42,17 +40,12 @@
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
     }
-
     .page {
       max-width: 920px;
       margin: 0 auto;
       padding: 48px 24px 80px;
     }
-
-    .hero {
-      margin-bottom: 40px;
-    }
-
+    .hero { margin-bottom: 40px; }
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -64,14 +57,12 @@
       color: var(--primary);
       margin-bottom: 12px;
     }
-
     .hero-eyebrow .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
       background: var(--primary);
     }
-
     h1 {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: clamp(28px, 4vw, 36px);
@@ -80,20 +71,17 @@
       line-height: 1.1;
       margin-bottom: 10px;
     }
-
     .hero-sub {
       font-size: 15px;
       color: var(--text-2);
       max-width: 56ch;
     }
-
     .meta-bar {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 20px;
     }
-
     .meta-pill {
       display: inline-flex;
       align-items: center;
@@ -105,9 +93,7 @@
       font-size: 12px;
       color: var(--text-2);
     }
-
     .meta-pill strong { color: var(--text); font-weight: 600; }
-
     .toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -119,7 +105,6 @@
       border-radius: var(--r-xl);
       box-shadow: var(--shadow-sm);
     }
-
     .toolbar-label {
       font-size: 12px;
       font-weight: 600;
@@ -127,7 +112,6 @@
       align-self: center;
       margin-right: 4px;
     }
-
     .filter-btn {
       padding: 6px 12px;
       border-radius: 999px;
@@ -139,20 +123,17 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
-
     .filter-btn:hover { border-color: var(--primary); color: var(--text); }
     .filter-btn.active {
       background: var(--primary-soft);
       border-color: var(--primary);
       color: var(--primary);
     }
-
     .timeline {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-
     .entry {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -160,14 +141,11 @@
       overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
-
     .entry.hidden { display: none; }
-
     .entry-head {
       padding: 20px 22px 16px;
       border-bottom: 1px solid var(--border-subtle);
     }
-
     .entry-top {
       display: flex;
       flex-wrap: wrap;
@@ -175,7 +153,6 @@
       gap: 10px;
       margin-bottom: 10px;
     }
-
     .version-tag {
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
       font-size: 12px;
@@ -185,12 +162,10 @@
       padding: 4px 10px;
       border-radius: 6px;
     }
-
     .date {
       font-size: 12px;
       color: var(--text-3);
     }
-
     .badge {
       margin-left: auto;
       padding: 3px 10px;
@@ -200,25 +175,21 @@
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
-
     .badge.latest {
       background: var(--success-soft);
       color: var(--success);
       border: 1px solid oklch(85% 0.08 145);
     }
-
     .badge.stable {
       background: var(--muted);
       color: var(--text-3);
       border: 1px solid var(--border);
     }
-
-    .badge.experiment {
-      background: var(--warning-soft);
-      color: oklch(45% 0.12 75);
-      border: 1px solid oklch(88% 0.08 75);
+    .badge.stable-base {
+      background: var(--muted);
+      color: var(--text-3);
+      border: 1px solid var(--border);
     }
-
     .entry-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 18px;
@@ -226,16 +197,13 @@
       letter-spacing: -0.02em;
       margin-bottom: 6px;
     }
-
     .entry-desc {
       font-size: 14px;
       color: var(--text-2);
     }
-
     .entry-body {
       padding: 0 22px 22px;
     }
-
     .section-label {
       font-size: 10px;
       font-weight: 700;
@@ -244,40 +212,12 @@
       color: var(--text-3);
       margin: 18px 0 10px;
     }
-
-    .changelog {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .changelog li {
-      position: relative;
-      padding-left: 18px;
-      font-size: 13px;
-      color: var(--text-2);
-    }
-
-    .changelog li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--primary);
-      opacity: 0.55;
-    }
-
     .tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 4px;
     }
-
     .tag {
       padding: 4px 10px;
       border-radius: 999px;
@@ -286,14 +226,12 @@
       font-size: 11px;
       color: var(--text-3);
     }
-
     .links {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 4px;
     }
-
     .link-btn {
       display: inline-flex;
       align-items: center;
@@ -308,81 +246,18 @@
       text-decoration: none;
       transition: all 0.15s ease;
     }
-
     .link-btn:hover {
       background: var(--primary-soft);
       border-color: var(--primary);
     }
-
     .link-btn.primary {
       background: var(--primary);
       border-color: var(--primary);
       color: white;
     }
-
     .link-btn.primary:hover {
       filter: brightness(1.05);
     }
-
-    .screenshots {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
-    }
-
-    .shot {
-      border: 1px dashed var(--border);
-      border-radius: var(--r-lg);
-      overflow: hidden;
-      background: var(--surface-2);
-      min-height: 140px;
-      display: flex;
-      flex-direction: column;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .shot:hover {
-      border-color: var(--primary);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .shot img {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      object-position: top;
-      display: block;
-      background: var(--muted);
-      cursor: zoom-in;
-    }
-
-    .shot-placeholder {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 20px 14px;
-      text-align: center;
-      color: var(--text-3);
-      font-size: 11px;
-    }
-
-    .shot-placeholder svg {
-      width: 28px;
-      height: 28px;
-      opacity: 0.35;
-    }
-
-    .shot-caption {
-      padding: 8px 10px;
-      font-size: 11px;
-      color: var(--text-3);
-      border-top: 1px solid var(--border-subtle);
-      background: var(--surface);
-    }
-
     footer {
       margin-top: 48px;
       padding-top: 24px;
@@ -391,105 +266,6 @@
       color: var(--text-3);
       text-align: center;
     }
-
-    /* Lightbox */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s ease, visibility 0.2s ease;
-    }
-
-    .lightbox.open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .lightbox-backdrop {
-      position: absolute;
-      inset: 0;
-      background: oklch(0% 0 0 / 0.72);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      cursor: zoom-out;
-    }
-
-    .lightbox-panel {
-      position: relative;
-      z-index: 1;
-      max-width: min(96vw, 1400px);
-      max-height: 92vh;
-      display: flex;
-      flex-direction: column;
-      background: var(--surface);
-      border-radius: var(--r-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
-      transform: scale(0.96);
-      transition: transform 0.2s ease;
-    }
-
-    .lightbox.open .lightbox-panel {
-      transform: scale(1);
-    }
-
-    .lightbox-img-wrap {
-      overflow: auto;
-      max-height: calc(92vh - 52px);
-      background: var(--surface-2);
-    }
-
-    .lightbox-panel img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-width: 100%;
-    }
-
-    .lightbox-foot {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 16px;
-      border-top: 1px solid var(--border-subtle);
-      background: var(--surface);
-    }
-
-    .lightbox-caption {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-2);
-    }
-
-    .lightbox-close {
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      background: var(--surface-2);
-      color: var(--text-2);
-      font-size: 18px;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .lightbox-close:hover {
-      background: var(--muted);
-      color: var(--text);
-    }
-
     @media (max-width: 640px) {
       .page { padding: 32px 16px 64px; }
       .badge { margin-left: 0; }
@@ -508,9 +284,9 @@
       </p>
       <div class="meta-bar">
         <span class="meta-pill"><strong>Owner</strong> Shad · shad@tripwheel.io</span>
-        <span class="meta-pill"><strong>Latest</strong> research-itinerary</span>
+        <span class="meta-pill"><strong>Latest</strong> research-itinerary-v3</span>
         <span class="meta-pill"><strong>Updated</strong> Jun 26, 2026</span>
-        <span class="meta-pill"><strong>Entries</strong> 4 versions</span>
+        <span class="meta-pill"><strong>Entries</strong> 8 versions</span>
       </div>
     </header>
 
@@ -523,49 +299,104 @@
 
     <div class="timeline">
 
-      <!-- Research: Travel Itinerary Report -->
+      <!-- research-itinerary-v3 -->
+      <article class="entry" data-type="experiment">
+        <div class="entry-head">
+          <div class="entry-top">
+            <span class="version-tag">research-itinerary-v3</span>
+            <span class="date">Jun 26, 2026</span>
+            <span class="badge latest">Latest</span>
+          </div>
+          <h2 class="entry-title">Travel Itinerary Research v3 — Europe &amp; America Market</h2>
+          <p class="entry-desc">Fact-checked research focusing on transatlantic corridor</p>
+          <div class="tags">
+            <span class="tag">Research</span>
+            <span class="tag">Europe</span>
+            <span class="tag">America</span>
+            <span class="tag">Fact-Checked</span>
+            <span class="tag">Market Analysis</span>
+          </div>
+        </div>
+        <div class="entry-body">
+          <div class="section-label">Links</div>
+          <div class="links">
+            <a class="link-btn primary" href="research-v3-additions.html" target="_blank">↗ Open report</a>
+            <a class="link-btn" href="research-itinerary-v2.html" target="_blank">v2 · Research</a>
+            <a class="link-btn" href="research-itinerary.html" target="_blank">v1 · Original</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- research-itinerary-v2.1 -->
+      <article class="entry" data-type="experiment">
+        <div class="entry-head">
+          <div class="entry-top">
+            <span class="version-tag">research-itinerary-v2.1</span>
+            <span class="date">Jun 26, 2026</span>
+            <span class="badge stable">Stable</span>
+          </div>
+          <h2 class="entry-title">Travel Itinerary Research v2.1 — Japan Data &amp; Methodology</h2>
+          <p class="entry-desc">Fact-checked research with Japan-specific data</p>
+          <div class="tags">
+            <span class="tag">Research</span>
+            <span class="tag">Japan</span>
+            <span class="tag">Fact-Checked</span>
+            <span class="tag">Methodology</span>
+          </div>
+        </div>
+        <div class="entry-body">
+          <div class="section-label">Links</div>
+          <div class="links">
+            <a class="link-btn primary" href="research-itinerary-v2.1.html" target="_blank">↗ Open report</a>
+            <a class="link-btn" href="research-itinerary.html" target="_blank">v1 · Original</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- research-itinerary-v2 -->
+      <article class="entry" data-type="experiment">
+        <div class="entry-head">
+          <div class="entry-top">
+            <span class="version-tag">research-itinerary-v2</span>
+            <span class="date">Jun 26, 2026</span>
+            <span class="badge stable">Stable</span>
+          </div>
+          <h2 class="entry-title">Travel Itinerary Research v2 — Expanded Insights</h2>
+          <p class="entry-desc">Expanded research with deeper Reddit analysis and competitive landscape</p>
+          <div class="tags">
+            <span class="tag">Research</span>
+            <span class="tag">Reddit</span>
+            <span class="tag">Competitive Analysis</span>
+            <span class="tag">Expanded</span>
+          </div>
+        </div>
+        <div class="entry-body">
+          <div class="section-label">Links</div>
+          <div class="links">
+            <a class="link-btn primary" href="research-itinerary-v2.html" target="_blank">↗ Open report</a>
+            <a class="link-btn" href="research-itinerary.html" target="_blank">v1 · Original research</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- research-itinerary -->
       <article class="entry" data-type="experiment">
         <div class="entry-head">
           <div class="entry-top">
             <span class="version-tag">research-itinerary</span>
             <span class="date">Jun 26, 2026</span>
-            <span class="badge latest">Latest</span>
+            <span class="badge stable">Stable</span>
           </div>
           <h2 class="entry-title">Travel Itinerary Research — Travellers &amp; Advisors Perspective</h2>
-          <p class="entry-desc">
-            Deep research report synthesising insights from Reddit, X, travel blogs, app reviews, and industry analysis.
-            Covers pain points, best practices, competitive landscape, and opportunities for Tripwheel.
-          </p>
+          <p class="entry-desc">Deep research from Reddit, X, travel blogs</p>
           <div class="tags">
             <span class="tag">Research</span>
             <span class="tag">Reddit</span>
             <span class="tag">Competitive Analysis</span>
             <span class="tag">Pain Points</span>
-            <span class="tag">Best Practices</span>
-            <span class="tag">Product Strategy</span>
           </div>
         </div>
         <div class="entry-body">
-          <div class="section-label">Report contents</div>
-          <ul class="changelog">
-            <li>Executive summary with key statistics (73% find planning stressful, 68% use 3+ tools)</li>
-            <li>What travellers actually want — 6 top requested features ranked by frequency</li>
-            <li>Top 6 pain points from Reddit &amp; forums with real user quotes</li>
-            <li>What advisors wish you knew — 6 professional insights</li>
-            <li>Competitive landscape — Wanderlog, TripIt, Google Sheets, Notion, AI tools comparison</li>
-            <li>Best practices from experienced travellers — 3-2-1 rule, neighbourhood batching, morning anchors</li>
-            <li>What makes a great digital itinerary UX — must-haves and delighters</li>
-            <li>Emerging trends — AI itineraries, social sharing, micro-trips, booking integration</li>
-            <li>Opportunities for Tripwheel — 6 product differentiators and positioning opportunities</li>
-          </ul>
-
-          <div class="section-label">Key insight</div>
-          <ul class="changelog">
-            <li><strong>The Google Trips Void:</strong> Discontinued in 2019, nothing has replaced it. Reddit threads about alternatives get thousands of upvotes.</li>
-            <li><strong>The Core Tension:</strong> Travellers want structure AND spontaneity. Existing tools force a binary choice.</li>
-            <li><strong>The Shareability Gap:</strong> Most tools require app downloads or accounts to share. A simple link shouldn't be revolutionary.</li>
-          </ul>
-
           <div class="section-label">Links</div>
           <div class="links">
             <a class="link-btn primary" href="research-itinerary.html" target="_blank">↗ Open report</a>
@@ -574,131 +405,43 @@
         </div>
       </article>
 
-      <!-- v4 — Tokyo premium digital itinerary -->
+      <!-- v4-tokyo-premium -->
       <article class="entry" data-type="prototype">
         <div class="entry-head">
           <div class="entry-top">
             <span class="version-tag">v4-tokyo-premium</span>
-            <span class="date">Jun 26, 2026</span>
+            <span class="date">Jun 25, 2026</span>
             <span class="badge stable">Stable</span>
           </div>
           <h2 class="entry-title">Premium digital itinerary — Tokyo in Five</h2>
-          <p class="entry-desc">
-            Full interactive travel experience with Leaflet.js map, Unsplash photos, expandable day cards,
-            fly-to animations, and animated counters. Split layout with sticky map + scrollable timeline.
-            The premium, digital-first version of the Tokyo itinerary.
-          </p>
-          <div class="tags">
-            <span class="tag">Interactive map</span>
-            <span class="tag">Leaflet.js</span>
-            <span class="tag">Unsplash photos</span>
-            <span class="tag">Fly-to animations</span>
-            <span class="tag">Split layout</span>
-            <span class="tag">Expandable cards</span>
-            <span class="tag">Premium</span>
-          </div>
         </div>
         <div class="entry-body">
-          <div class="section-label">Update log</div>
-          <ul class="changelog">
-            <li>Interactive Leaflet.js map with color-coded markers per day and numbered custom div icons</li>
-            <li>Smooth fly-to animation when selecting a day from navigation</li>
-            <li>Split layout: sticky map (45%) + scrollable day cards (55%)</li>
-            <li>Expandable day cards with photo galleries (3-4 Unsplash images per day)</li>
-            <li>Timeline with times, descriptions, color-coded tags, and transport badges</li>
-            <li>Full-viewport hero with parallax scroll and staggered title reveal</li>
-            <li>Animated counters in summary section (days, experiences, districts, photos)</li>
-            <li>Sticky day navigation with color-dot pills and scroll-tracked active state</li>
-            <li>Mobile responsive: map collapses to accordion, cards go full width</li>
-          </ul>
-
-          <div class="section-label">Design stance</div>
-          <ul class="changelog">
-            <li><strong>Layout:</strong> Full hero → sticky map + scrollable cards split → summary</li>
-            <li><strong>Typography:</strong> Instrument Serif (display) + Inter (body)</li>
-            <li><strong>Color:</strong> Near-black hero (#0f0f0f), warm cream content (#faf8f5), gold accent (#c4956a), sage (#7a8f72), lavender (#8a7ab0)</li>
-            <li><strong>Interaction:</strong> Map fly-to, card expand/collapse, scroll-triggered reveals, animated counters</li>
-          </ul>
-
-          <div class="section-label">Screenshots</div>
-          <div class="screenshots">
-            <div class="shot">
-              <img src="tokyo-premium-screenshot.png" alt="Tokyo premium itinerary with map and timeline" loading="lazy">
-              <div class="shot-caption">Interactive map + day cards layout</div>
-            </div>
-          </div>
-
           <div class="section-label">Links</div>
           <div class="links">
             <a class="link-btn primary" href="tokyo-premium.html" target="_blank">↗ Open prototype</a>
-            <a class="link-btn" href="tokyo.html" target="_blank">v3 · Editorial</a>
-            <a class="link-btn" href="warm.html" target="_blank">v2 · Warm stepwise</a>
           </div>
         </div>
       </article>
 
-      <!-- v3 — Tokyo editorial itinerary -->
+      <!-- v3-tokyo-editorial -->
       <article class="entry" data-type="prototype">
         <div class="entry-head">
           <div class="entry-top">
             <span class="version-tag">v3-tokyo-editorial</span>
-            <span class="date">Jun 26, 2026</span>
+            <span class="date">Jun 25, 2026</span>
             <span class="badge stable">Stable</span>
           </div>
           <h2 class="entry-title">Editorial travel journal — Tokyo in Five</h2>
-          <p class="entry-desc">
-            A complete redesign as a single-file editorial travel itinerary. Cormorant Garamond + DM Sans typography,
-            warm paper tones with per-day accent colors, vertical timeline layout, sticky day navigation,
-            and scroll-reveal animations. Fully self-contained — no frameworks, no build step.
-          </p>
-          <div class="tags">
-            <span class="tag">Editorial</span>
-            <span class="tag">Travel journal</span>
-            <span class="tag">Cormorant Garamond</span>
-            <span class="tag">Timeline layout</span>
-            <span class="tag">Scroll animations</span>
-            <span class="tag">Single file</span>
-          </div>
         </div>
         <div class="entry-body">
-          <div class="section-label">Update log</div>
-          <ul class="changelog">
-            <li>Full 5-day Tokyo itinerary with 22 curated experiences across 4 districts</li>
-            <li>Vertical timeline layout with dot markers, hover states, and per-event color tags</li>
-            <li>Day-by-day sticky navigation with intersection observer active state</li>
-            <li>Scroll-reveal animation on summary section</li>
-            <li>Typography: Cormorant Garamond (display) + DM Sans (body) — editorial serif meets clean sans</li>
-            <li>Warm paper palette with per-day accent colors (rust, sage, lavender, clay)</li>
-            <li>Responsive design — works on mobile through desktop</li>
-            <li>Self-contained single HTML file, no external dependencies beyond Google Fonts</li>
-          </ul>
-
-          <div class="section-label">Design stance</div>
-          <ul class="changelog">
-            <li><strong>Layout:</strong> Full-width hero → sticky day nav → timeline sections → summary stats</li>
-            <li><strong>Typography:</strong> Cormorant Garamond for display (300/400/500) + DM Sans for body (300–700)</li>
-            <li><strong>Color:</strong> Warm cream paper (#faf8f5), clay (#c4a882), rust (#b8705a), sage (#7a8f72), lavender (#8a7ab0)</li>
-            <li><strong>Interaction:</strong> Scroll-triggered nav highlighting, hover dot transitions, fade-up reveals</li>
-          </ul>
-
-          <div class="section-label">Screenshots</div>
-          <div class="screenshots">
-            <div class="shot">
-              <img src="tokyo-screenshot.png" alt="Tokyo itinerary hero and timeline" loading="lazy">
-              <div class="shot-caption">Hero + timeline layout</div>
-            </div>
-          </div>
-
           <div class="section-label">Links</div>
           <div class="links">
-            <a class="link-btn primary" href="tokyo.html" target="_blank">↗ Open prototype</a>
-            <a class="link-btn" href="warm.html" target="_blank">v2 · Warm stepwise</a>
-            <a class="link-btn" href="index.html" target="_blank">v1 · Sidebar</a>
+            <a class="link-btn primary" href="index.html" target="_blank">↗ Open prototype</a>
           </div>
         </div>
       </article>
 
-      <!-- v2 — Warm stepwise wizard -->
+      <!-- v2-warm-stepwise -->
       <article class="entry" data-type="prototype">
         <div class="entry-head">
           <div class="entry-top">
@@ -707,132 +450,29 @@
             <span class="badge stable">Stable</span>
           </div>
           <h2 class="entry-title">Soothing step-by-step wizard with share link</h2>
-          <p class="entry-desc">
-            A complete rethink — guided 4-step wizard (Basics → Days → Activities → Review & Share).
-            Headspace-meets-Typeform aesthetic with warm cream tones, sage green accents, and Playfair Display headings.
-            Generates a copyable share link on completion.
-          </p>
-          <div class="tags">
-            <span class="tag">Wizard flow</span>
-            <span class="tag">Share link</span>
-            <span class="tag">Warm palette</span>
-            <span class="tag">Playfair Display</span>
-            <span class="tag">Step-by-step</span>
-            <span class="tag">Guided</span>
-          </div>
         </div>
         <div class="entry-body">
-          <div class="section-label">Update log</div>
-          <ul class="changelog">
-            <li>4-step guided wizard: Trip basics → Add days → Fill activities per day → Review & share</li>
-            <li>Progress indicator with step dots and labels across the top</li>
-            <li>Vibe picker (Relaxed / Active / Foodie / Cultural / Adventure / Wellness) on step 1</li>
-            <li>Auto-generate days from start/end dates; manual day labels and reordering</li>
-            <li>Inline activity entry per day with time + name fields</li>
-            <li>Review page shows full itinerary grouped by day with a shareable URL mock</li>
-            <li>Warm cream (#faf7f2) background, sage (#7c9a7e) accents, terracotta (#c17a5e) share button</li>
-            <li>Pre-filled with a complete 7-day Tokyo foodie trip for instant feel</li>
-            <li>Fixed from initial deploy: all 7 days filled, lands on review page directly</li>
-          </ul>
-
-          <div class="section-label">Design stance</div>
-          <ul class="changelog">
-            <li><strong>Layout:</strong> Single centered column (max 600px), no sidebar or map panel</li>
-            <li><strong>Typography:</strong> Playfair Display headings + system sans-serif body</li>
-            <li><strong>Color:</strong> Cream + sage + terracotta — soothing, not utilitarian</li>
-            <li><strong>Interaction:</strong> Linear wizard with back/next navigation; toast feedback; copy-to-clipboard share</li>
-          </ul>
-
-          <div class="section-label">Screenshots</div>
-          <div class="screenshots">
-            <div class="shot">
-              <img src="assets/screenshots/v2-warm-step1-basics.png" alt="v2 step 1 basics" loading="lazy">
-              <div class="shot-caption">Step 1 · Trip basics & vibe</div>
-            </div>
-            <div class="shot">
-              <img src="assets/screenshots/v2-warm-step3-activities.png" alt="v2 step 3 activities" loading="lazy">
-              <div class="shot-caption">Step 3 · Activities per day</div>
-            </div>
-            <div class="shot">
-              <img src="assets/screenshots/v2-warm-step4-review.png" alt="v2 step 4 review" loading="lazy">
-              <div class="shot-caption">Step 4 · Review & share link</div>
-            </div>
-            <div class="shot">
-              <img src="assets/screenshots/v2-warm-all-days.png" alt="v2 all days filled" loading="lazy">
-              <div class="shot-caption">All 7 days · complete itinerary</div>
-            </div>
-          </div>
-
           <div class="section-label">Links</div>
           <div class="links">
             <a class="link-btn primary" href="warm.html" target="_blank">↗ Open prototype</a>
-            <a class="link-btn" href="index.html" target="_blank">v1 · Sidebar (previous)</a>
           </div>
         </div>
       </article>
 
-      <!-- v1 — Sidebar itinerary -->
+      <!-- v1-sidebar -->
       <article class="entry" data-type="prototype">
         <div class="entry-head">
           <div class="entry-top">
             <span class="version-tag">v1-sidebar</span>
             <span class="date">Jun 25, 2026</span>
-            <span class="badge stable">Stable base</span>
+            <span class="badge stable-base">Stable base</span>
           </div>
           <h2 class="entry-title">Utilitarian sidebar + map panel</h2>
-          <p class="entry-desc">
-            Apple HIG-inspired layout with a 320px sidebar showing day-by-day timeline
-            and a main map panel that updates with numbered pins when a day is selected.
-            Inline activity entry with toast feedback.
-          </p>
-          <div class="tags">
-            <span class="tag">Sidebar layout</span>
-            <span class="tag">Apple HIG</span>
-            <span class="tag">Map pins</span>
-            <span class="tag">Inline entry</span>
-            <span class="tag">System fonts</span>
-          </div>
         </div>
         <div class="entry-body">
-          <div class="section-label">Update log</div>
-          <ul class="changelog">
-            <li>Split-pane layout: 320px sidebar (day list) + flex main panel (map area)</li>
-            <li>Click day to expand → map shows numbered pins for that day's activities</li>
-            <li>Inline add-activity form per day with name + time fields</li>
-            <li>Toast feedback on add, day creation, and export action</li>
-            <li>Export button logs full itinerary to console (mock)</li>
-            <li>Pre-filled with 4-day Tokyo trip: Shinjuku → Shibuya → Asakusa → Kamakura</li>
-            <li>System font stack, #0071e3 accent, white cards — clean Apple HIG feel</li>
-          </ul>
-
-          <div class="section-label">Design stance</div>
-          <ul class="changelog">
-            <li><strong>Layout:</strong> Sidebar master-detail — itinerary is always visible, map is secondary</li>
-            <li><strong>Typography:</strong> System fonts only (SF Pro feel)</li>
-            <li><strong>Color:</strong> Apple HIG — white cards, blue accent, neutral grays</li>
-            <li><strong>Interaction:</strong> All-at-once — everything visible, no wizard steps</li>
-          </ul>
-
-          <div class="section-label">Screenshots</div>
-          <div class="screenshots">
-            <div class="shot">
-              <img src="assets/screenshots/v1-itinerary-sidebar.png" alt="v1 sidebar layout" loading="lazy">
-              <div class="shot-caption">Sidebar + map panel layout</div>
-            </div>
-            <div class="shot">
-              <img src="assets/screenshots/v1-itinerary-day-expanded.png" alt="v1 day expanded" loading="lazy">
-              <div class="shot-caption">Day expanded · inline form</div>
-            </div>
-            <div class="shot">
-              <img src="assets/screenshots/v1-itinerary-map-pins.png" alt="v1 map pins" loading="lazy">
-              <div class="shot-caption">Map pins on day selection</div>
-            </div>
-          </div>
-
           <div class="section-label">Links</div>
           <div class="links">
             <a class="link-btn primary" href="index.html" target="_blank">↗ Open prototype</a>
-            <a class="link-btn" href="warm.html" target="_blank">v2 · Warm stepwise (next)</a>
           </div>
         </div>
       </article>
@@ -840,62 +480,12 @@
     </div>
 
     <footer>
-      Itinerary Builder · shad@tripwheel.io · Generated Jun 25, 2026<br>
+      Itinerary Builder · shad@tripwheel.io · Generated Jun 26, 2026<br>
       Built as single-file HTML mockups — no frameworks, no build step.
     </footer>
   </div>
 
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
-    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
-    <div class="lightbox-panel">
-      <div class="lightbox-img-wrap">
-        <img id="lightbox-img" src="" alt="">
-      </div>
-      <div class="lightbox-foot">
-        <div class="lightbox-caption" id="lightbox-caption"></div>
-        <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
-      </div>
-    </div>
-  </div>
-
   <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxBackdrop = document.getElementById('lightbox-backdrop');
-    const lightboxClose = document.getElementById('lightbox-close');
-
-    function openLightbox(src, caption, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || caption || 'Screenshot';
-      lightboxCaption.textContent = caption || '';
-      lightbox.classList.add('open');
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-      lightboxClose.focus();
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove('open');
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-      lightboxImg.src = '';
-    }
-
-    document.querySelectorAll('.shot img').forEach(img => {
-      img.addEventListener('click', () => {
-        const caption = img.closest('.shot')?.querySelector('.shot-caption')?.textContent?.trim() || '';
-        openLightbox(img.src, caption, img.alt);
-      });
-    });
-
-    lightboxBackdrop.addEventListener('click', closeLightbox);
-    lightboxClose.addEventListener('click', closeLightbox);
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
-    });
-
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
