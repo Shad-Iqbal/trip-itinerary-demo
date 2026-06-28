@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Itinerary-Building Products — Market Research & Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: oklch(98% 0.003 250);
+  --surface: oklch(100% 0 0);
+  --surface-2: oklch(97% 0.004 250);
+  --border: oklch(91% 0.008 250);
+  --border-subtle: oklch(95% 0.005 250);
+  --text: oklch(16% 0.02 250);
+  --text-2: oklch(45% 0.015 250);
+  --text-3: oklch(62% 0.01 250);
+  --primary: oklch(52% 0.14 250);
+  --primary-soft: oklch(95% 0.03 250);
+  --primary-strong: oklch(40% 0.16 250);
+  --success: oklch(58% 0.16 145);
+  --success-soft: oklch(95% 0.04 145);
+  --warning: oklch(72% 0.18 75);
+  --warning-soft: oklch(96% 0.05 75);
+  --muted: oklch(94% 0.006 250);
+  --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.05);
+  --shadow-md: 0 4px 12px oklch(0% 0 0 / 0.06);
+  --shadow-lg: 0 12px 32px oklch(0% 0 0 / 0.08);
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;font-size:15px;}
+.page{max-width:1040px;margin:0 auto;padding:56px 24px 96px;}
+.back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--text-3);text-decoration:none;margin-bottom:24px;transition:color 0.15s;}
+.back-link:hover{color:var(--primary);}
+.back-link::before{content:'←';font-size:14px;}
+.hero{margin-bottom:40px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--primary);margin-bottom:14px;}
+.hero-eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--primary);}
+h1,h2,h3,h4{font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);}
+.hero h1{font-size:clamp(30px,4.2vw,42px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:14px;}
+.hero-sub{font-size:16px;color:var(--text-2);max-width:64ch;line-height:1.5;}
+.meta-bar{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.meta-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:12px;color:var(--text-2);}
+.meta-pill strong{color:var(--text);font-weight:600;}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:32px;margin-bottom:48px;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:16px 12px;text-align:center;}
+.stat-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;color:var(--primary);line-height:1;margin-bottom:4px;}
+.stat-l{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.04em;}
+section.report-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px 36px;margin-bottom:32px;box-shadow:var(--shadow-sm);}
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border-subtle);}
+.section-header h2{font-size:22px;font-weight:700;letter-spacing:-0.02em;color:var(--text);}
+.section-header .badge{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--primary-soft);color:var(--primary-strong);}
+.section-header .meta{margin-left:auto;font-size:12px;color:var(--text-3);}
+.report-content h1{font-size:28px;font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;margin-top:0;}
+.report-content h2{font-size:22px;font-weight:700;letter-spacing:-0.015em;margin-top:40px;margin-bottom:14px;padding-top:12px;border-top:1px solid var(--border-subtle);scroll-margin-top:80px;}
+.report-content h2:first-of-type{border-top:0;margin-top:8px;padding-top:0;}
+.report-content h3{font-size:17px;font-weight:700;margin-top:28px;margin-bottom:10px;scroll-margin-top:80px;}
+.report-content h4{font-size:14px;font-weight:700;margin-top:22px;margin-bottom:6px;}
+.report-content p{margin-bottom:12px;line-height:1.65;}
+.report-content ul,.report-content ol{margin:8px 0 16px 24px;}
+.report-content li{margin-bottom:6px;line-height:1.6;}
+.report-content li::marker{color:var(--text-3);}
+.report-content strong{font-weight:600;}
+.report-content em{color:var(--text-2);font-style:italic;}
+.report-content code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:var(--muted);color:var(--primary-strong);padding:1px 6px;border-radius:4px;}
+.report-content a{color:var(--primary);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
+.report-content a:hover{color:var(--primary-strong);}
+.report-content hr{border:0;height:1px;background:var(--border);margin:32px 0;}
+.report-content blockquote{border-left:3px solid var(--primary);background:var(--primary-soft);padding:14px 20px;margin:16px 0;border-radius:0 var(--r-md) var(--r-md) 0;}
+.report-content blockquote p{margin:0;font-size:14.5px;}
+.report-content blockquote p+p{margin-top:8px;}
+.table-wrap{overflow-x:auto;margin:16px 0 20px 0;border:1px solid var(--border);border-radius:var(--r-md);}
+table.data-table{width:100%;border-collapse:collapse;font-size:12.5px;line-height:1.4;}
+table.data-table th{background:var(--surface-2);padding:10px 12px;text-align:left;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);white-space:nowrap;}
+table.data-table td{padding:9px 12px;border-bottom:1px solid var(--border-subtle);color:var(--text);vertical-align:top;}
+table.data-table tr:last-child td{border-bottom:0;}
+table.data-table tr:hover td{background:var(--surface-2);}
+.strategy-callouts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:24px 0 8px 0;}
+.strategy-card{background:var(--primary-soft);border:1px solid var(--primary);border-radius:var(--r-md);padding:18px 20px;}
+.strategy-card .label{font-size:10.5px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--primary-strong);margin-bottom:6px;}
+.strategy-card .text{font-size:14.5px;line-height:1.5;}
+.strategy-card .text strong{color:var(--primary-strong);}
+.strategy-memo{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:32px 36px;margin-bottom:32px;box-shadow:var(--shadow-sm);border-left:4px solid var(--primary);}
+.strategy-memo h2{font-size:19px;font-weight:700;margin-top:24px;margin-bottom:10px;padding-top:12px;border-top:1px solid var(--border-subtle);scroll-margin-top:80px;}
+.strategy-memo h2:first-of-type{border-top:0;padding-top:0;margin-top:4px;}
+.strategy-memo h3{font-size:16px;font-weight:700;margin-top:20px;margin-bottom:6px;}
+.strategy-memo p{margin-bottom:10px;line-height:1.6;}
+.strategy-memo ul,.strategy-memo ol{margin:6px 0 12px 22px;}
+.strategy-memo li{margin-bottom:4px;line-height:1.55;font-size:14.5px;}
+.strategy-memo table.data-table{font-size:12px;}
+.strategy-memo strong{font-weight:600;}
+.toc{position:sticky;top:24px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:16px 18px;margin-bottom:32px;max-height:calc(100vh - 48px);overflow-y:auto;}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;}
+.toc ol{list-style:none;counter-reset:toc;}
+.toc li{counter-increment:toc;margin-bottom:2px;}
+.toc a{display:block;padding:5px 8px;font-size:13px;color:var(--text-2);text-decoration:none;border-radius:4px;transition:all 0.12s;line-height:1.4;}
+.toc a:hover{background:var(--primary-soft);color:var(--primary-strong);}
+.toc a::before{content:counter(toc,decimal-leading-zero);font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-3);margin-right:6px;}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;}
+@media (max-width:920px){.layout{grid-template-columns:1fr;}.toc{position:static;max-height:none;}.stats{grid-template-columns:repeat(3,1fr);}.strategy-callouts{grid-template-columns:1fr;}}
+@media (max-width:560px){.stats{grid-template-columns:repeat(2,1fr);}}
+footer.page-footer{margin-top:56px;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--text-3);text-align:center;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="https://shad-iqbal.github.io/trip-itinerary-demo/versions.html">Tripwheel · Trip Itinerary Demos</a>
+
+  <header class="hero">
+    <div class="hero-eyebrow"><span class="dot"></span>Market Research & Strategy</div>
+    <h1>Itinerary-Building Products</h1>
+    <p class="hero-sub">A full landscape scan of the itinerary-tooling market — 20 competitors, 5 ICPs, 10 pain points, 20-feature matrix, 5 opportunities — and a synthesized 1-page strategy memo for Tripwheel's positioning.</p>
+    <div class="meta-bar">
+      <div class="meta-pill">📅 2026-06-28</div>
+      <div class="meta-pill">🔬 @market-researcher</div>
+      <div class="meta-pill">🧠 @synthesizer</div>
+      <div class="meta-pill">📊 47 sources</div>
+    </div>
+  </header>
+
+  <section class="stats">
+      <div class="stat"><div class="stat-n">47</div><div class="stat-l">sources</div></div>
+      <div class="stat"><div class="stat-n">20</div><div class="stat-l">competitors</div></div>
+      <div class="stat"><div class="stat-n">10</div><div class="stat-l">pain points</div></div>
+      <div class="stat"><div class="stat-n">5</div><div class="stat-l">ICPs</div></div>
+      <div class="stat"><div class="stat-n">20×10</div><div class="stat-l">matrix</div></div>
+      <div class="stat"><div class="stat-n">5</div><div class="stat-l">opportunities</div></div>
+  </section>
+
+  <div class="layout">
+    <aside class="toc">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#tldr">TL;DR</a></li>
+        <li><a href="#market-scenario-current-state">Market Scenario</a></li>
+        <li><a href="#prominent-icps-ideal-customer-profiles">Prominent ICPs</a></li>
+        <li><a href="#pain-points-top-10-ranked-by-frequency-severity">Pain Points (Top 10)</a></li>
+        <li><a href="#competitors">Competitors (20)</a></li>
+        <li><a href="#swot-tripwheel-positioning">SWOT — Tripwheel</a></li>
+        <li><a href="#feature-matrix">Feature Matrix (20×10)</a></li>
+        <li><a href="#opportunities-35-specific-next-step-actions-for-tripwheel">Opportunities (5)</a></li>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#caveats-and-known-unknowns">Caveats</a></li>
+        <li><a href="#sources">Sources (47)</a></li>
+      </ol>
+    </aside>
+
+    <main>
+      <div class="strategy-callouts">
+        <div class="strategy-card">
+          <div class="label">The opportunity</div>
+          <div class="text">Map-first collaborative trip planning + <strong>multi-agent AI crew</strong> for groups. No current leader owns this intersection.</div>
+        </div>
+        <div class="strategy-card">
+          <div class="label">Position against</div>
+          <div class="text"><strong>Wanderlog</strong> — same ICP, lacks the agentic crew. Narrative: "shared command center with an AI team."</div>
+        </div>
+      </div>
+
+      <article class="strategy-memo">
+        <div class="section-header">
+          <h2 style="border:0;margin:0;padding:0;font-size:20px;">Strategy Memo (synthesizer output)</h2>
+          <span class="badge">1-page</span>
+          <span class="meta">9.4KB · 117 lines · 7 sections</span>
+        </div>
+<h2 id="the-opportunity-one-sentence">The opportunity (one sentence)</h2>
+<p>Tripwheel should own the <strong>white-space intersection of map-first collaborative trip planning + multi-agent AI crew</strong> for groups — no current leader (Wanderlog has groups+map but no agents; Layla/Mindtrip have agents but no group or map; OTAs have nothing for groups).</p>
+<hr>
+<h2 id="target-icps">Target ICPs</h2>
+<h3 id="primary-icp-2-group-travel-coordinator">Primary: ICP 2 — Group Travel Coordinator</h3>
+<p>This is Tripwheel&#x27;s natural wedge and the report&#x27;s strongest signal. The coordinator (28–50, de-facto planner for friend/family groups of 4–12) lives in spreadsheets, WhatsApp polls, and shared notes — exactly the pain point a collaborative board solves. Their high trip frequency (2–4 trips/yr) and willingness to pay $4.99–$9.99/mo means high LTV once engaged. Wanderlog has the same ICP but lacks the agentic layer that would genuinely reduce their planning time.</p>
+<h3 id="secondary-icp-5-ai-first-indie">Secondary: ICP 5 — AI-First Indie</h3>
+<p>The early adopter segment. These 20–40 tech-adjacent travelers already use ChatGPT for trip planning, so they&#x27;re pre-disposed to an AI-native product. They&#x27;ll try Tripwheel for the novelty of multi-agent planning, then bring their group when the next trip comes up. They also overlap with the TikTok/IG share-sheet play (Opportunity 3 in the report) — natural viral vector.</p>
+<p><strong>Why not ICP 1 (Solo Leisure) first?</strong> Largest TAM but not a wedge. The solo traveler already has TripIt, Wanderlog, and 7 AI chat planners. Tripwheel&#x27;s differentiator (multi-agent, group, map-first canvas) is overkill for solo. Racing into the solo market against 10+ incumbents with a product designed for groups is a losing strategy.</p>
+<hr>
+<h2 id="competitive-positioning">Competitive positioning</h2>
+<p><strong>Position against Wanderlog.</strong> Not TripIt (different funnel stage), not Layla/Mindtrip (too small to matter for positioning), not Booking AI (different distribution scale).</p>
+<p>Wanderlog is the closest analogue: groups+map+collaboration, $4.99/mo, App Store #1. Tripwheel&#x27;s explicit differentiator: <strong>multi-agent crew</strong> that works in parallel (route agent + budget agent + activities agent) on a map-first canvas with real-time multi-cursor co-planning. Wanderlog&#x27;s AI is a single-threaded LLM prompt; Tripwheel&#x27;s architecture is a coordinated team of agents.</p>
+<p>The competitive narrative: &quot;Wanderlog is a shared spreadsheet with a map. Tripwheel is a shared command center with an AI team.&quot;</p>
+<p>Do NOT position against:</p>
+<ul>
+<li><strong>TripIt</strong> — different funnel stage (post-booking vs. pre-trip) and different ICP (solo business traveler vs. groups).</li>
+<li><strong>Booking AI / OTA planners</strong> — can&#x27;t match their inventory depth. Position on planning quality and collaboration, not booking convenience.</li>
+<li><strong>ChatGPT / raw LLMs</strong> — the point isn&#x27;t &quot;better AI answers,&quot; it&#x27;s &quot;structured, shareable, map-centered plan that the whole group can edit.&quot;</li>
+</ul>
+<hr>
+<h2 id="first-feature-to-ship">First feature to ship</h2>
+<p><strong>Ship a &quot;4-8 person group trip board&quot; with one agent type: the Route Agent.</strong></p>
+<p>Rationale:</p>
+<ul>
+<li>The Route Agent (optimize a day&#x27;s route across pins, suggest logical ordering, surface open hours/duration) is the highest-impact single agent. It solves the real pain of &quot;I have 10 saved places and no idea how to order them.&quot;</li>
+<li>It&#x27;s technically achievable in 6–8 weeks extending Shad&#x27;s existing v4 demo.</li>
+<li>It demonstrates the &quot;agent crew&quot; vision without needing all 4 agents (route + budget + activities + booking) at once.</li>
+<li>It&#x27;s map-first by nature — the route is a map visualization.</li>
+<li>Wanderlog can&#x27;t do this: their AI suggests places but doesn&#x27;t produce an optimized route with time windows.</li>
+</ul>
+<p>Second priority (not in v1): Budget Agent (live expense tracking per trip/day, splitwise-style). Third: Activities Agent (fill open time slots with POI suggestions within budget).</p>
+<hr>
+<h2 id="pricing">Pricing</h2>
+<p><strong>Free tier + $5.99/mo Pro.</strong></p>
+<div class="table-wrap"><table class="data-table"><thead><tr>
+<th>Tier</th>
+<th>Price</th>
+<th>What&#x27;s included</th>
+</tr></thead><tbody>
+<tr>
+<td>Free</td>
+<td>$0</td>
+<td>1 active trip, 3 collaborators, basic map + itinerary, Route Agent (2 runs/trip)</td>
+</tr>
+<tr>
+<td>Pro</td>
+<td>$5.99/mo or $49/yr</td>
+<td>Unlimited trips, up to 12 collaborators, all 4 agents (route + budget + activities + booking), offline access, Gmail auto-import</td>
+</tr>
+</tbody></table></div>
+<p>Rationale:</p>
+<ul>
+<li>The report&#x27;s research shows $4.99–$9.99/mo is the accepted band (TripIt Pro $48/yr, Wanderlog Pro ~$40/yr, Roadtrippers Basic $35/yr).</li>
+<li>$5.99/mo splits the difference and feels &quot;premium but reasonable&quot; for a group coordinator who currently spends hours in spreadsheets.</li>
+<li>Free tier must be genuinely useful (1 real trip = proof of value) but constrained enough to convert.</li>
+<li>Group travel is high LTV: one Pro subscription may serve 10 trips/yr across 4–12 people. The coordinator pays; the group benefits. No per-person pricing.</li>
+<li>No per-booking or commission model at this stage — Tripwheel has no booking inventory and shouldn&#x27;t incentivize booking over planning quality.</li>
+</ul>
+<hr>
+<h2 id="risks">Risks</h2>
+<h3 id="1-wanderlog-adds-agentic-features-612-month-window">1. Wanderlog adds agentic features (6–12 month window)</h3>
+<p>The report flags this explicitly: &quot;Wanderlog adding agentic features. They have the map+collab+group base; agentic AI is the obvious next product.&quot; If Wanderlog ships a multi-agent crew in the next 6 months, Tripwheel&#x27;s core differentiator evaporates. <strong>Mitigation:</strong> Ship the Route Agent fast (v1 in 6–8 weeks), build a moat on multi-agent coordination quality (parallel agents, not single-threaded prompts), and establish the &quot;first to ship multi-agent for groups&quot; narrative before Wanderlog can claim it.</p>
+<h3 id="2-hallucination-trust-event">2. Hallucination trust event</h3>
+<p>The report&#x27;s SWOT flags this as &quot;category-ending&quot; — if Tripwheel&#x27;s agent invents a restaurant and a group shows up to a closed lot, trust is lost. <strong>Mitigation:</strong> Ship with explicit disclaimers (&quot;AI-suggested — verify before visiting&quot;), a &quot;report incorrect&quot; button, and a human-verification flow for bookings. Cold-start with curated POI data (Google Places API + manual seed) rather than pure LLM generation. Do NOT let the agent auto-book or auto-reserve anything.</p>
+<h3 id="3-multi-agent-llm-costlatency">3. Multi-agent LLM cost/latency</h3>
+<p>Multi-agent crews are expensive. The report warns: &quot;API cost could crater unit economics if GPT-5/Claude 4 pricing doesn&#x27;t drop further.&quot; If each group trip costs $0.50–$1.00 in LLM tokens and the free tier serves 100K users, burn rate becomes a constraint before revenue. <strong>Mitigation:</strong> Start with small models for specific agent roles (route optimization doesn&#x27;t need GPT-5), cache per-city daily plans, and increase agent depth only for Pro users. The free tier gets 2 route-agent runs per trip — enough to try, not enough to bankrupt the unit economics.</p>
+<hr>
+<h2 id="open-questions-for-shad">Open questions for Shad</h2>
+<h3 id="q1-mobile-strategy-pwa-first-vs-native-ios-first">Q1: Mobile strategy — PWA-first vs. native iOS first?</h3>
+<p>The report recommends PWA-first (faster to ship, works cross-platform). Native iOS would give better offline support and Apple Maps integration but 2–3x longer build time.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr>
+<th>Option</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>PWA-first</strong> (recommended)</td>
+<td>Ship in 6–8 weeks, cross-platform from day 1, iterates fast</td>
+<td>Limited offline, no push notifications, no Apple Wallet</td>
+</tr>
+<tr>
+<td>Native iOS first</td>
+<td>Best UX, offline, Apple Maps, Share Sheet, virality in App Store</td>
+<td>3–4x build time, Android delayed, harder to pivot</td>
+</tr>
+</tbody></table></div>
+<p><strong>Recommendation:</strong> PWA-first. Shad&#x27;s existing demos (v1–v4) are already web-based. Ship the group board + Route Agent as a PWA, validate demand, then go native on the segment with the strongest retention signal.</p>
+<h3 id="q2-booking-integration-build-partnerships-or-stay-planning-only">Q2: Booking integration — build partnerships or stay planning-only?</h3>
+<p>Booking inventory integration (Opportunity 5 in the report: EU DMA-driven open inventory) would dramatically increase value but requires partnerships and months of work.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr>
+<th>Option</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Planning-only v1</strong> (recommended)</td>
+<td>Ships faster, no partnership dependency, no commission revenue pressure</td>
+<td>Less sticky for users who want &quot;plan and book in one place&quot;</td>
+</tr>
+<tr>
+<td>Affiliate links (Skyscanner/Booking)</td>
+<td>Easy revenue, user sees prices</td>
+<td>Low conversion, affiliate rates are thin (&lt;5%), no booking UX</td>
+</tr>
+<tr>
+<td>Full booking via DMA play</td>
+<td>Differentiator, commission revenue</td>
+<td>Blocked on DMA timing, 3–6 months partnership work, not ready in 2026</td>
+</tr>
+</tbody></table></div>
+<p><strong>Recommendation:</strong> Planning-only for v1, affiliate links for v2 (light integration, test demand), full DMA-driven booking for v3 (2027). The report agrees: &quot;Don&#x27;t lead with this in 2026 — lead with Opportunities 1–3.&quot;</p>
+<h3 id="q3-which-agent-type-to-ship-second-after-route-agent">Q3: Which agent type to ship second (after Route Agent)?</h3>
+<p>Four agent types: <strong>route</strong> (order places by time/logic), <strong>budget</strong> (track spend per day/person), <strong>activities</strong> (fill gaps with POI suggestions), <strong>booking</strong> (find/book hotels/flights). Route Agent goes first. What follows?</p>
+<div class="table-wrap"><table class="data-table"><thead><tr>
+<th>Option</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr></thead><tbody>
+<tr>
+<td><strong>Budget Agent</strong> (recommended)</td>
+<td>Directly addresses #7 pain point (&quot;budget tracking is manual&quot;), pairs with group split, high retention signal</td>
+<td>Requires payment integration, harder to build without data</td>
+</tr>
+<tr>
+<td>Activities Agent</td>
+<td>High &quot;wow&quot; factor, fills trip gaps</td>
+<td>Hallucination risk, overlaps with Route Agent, less differentiation than budget-splitting</td>
+</tr>
+<tr>
+<td>Booking Agent</td>
+<td>Highest value per interaction</td>
+<td>Requires inventory partners, can&#x27;t ship without partnerships</td>
+</tr>
+</tbody></table></div>
+<p><strong>Recommendation:</strong> Budget Agent second. The report&#x27;s pain point #7 (&quot;budget tracking is manual, Splitwise doesn&#x27;t tie to itinerary items&quot;) is the #1 group-specific pain that no competitor solves well. It also gives Tripwheel a wedge into group coordination that goes beyond &quot;planning&quot; and into &quot;execution&quot; — which is stickier.</p>
+      </article>
+
+      <article class="report-section">
+        <div class="section-header">
+          <h2>Market Research Report (full)</h2>
+          <span class="badge">v2</span>
+          <span class="meta">47KB · 542 lines · 47 sources</span>
+        </div>
+        <div class="report-content">
+<h1 id="market-research-itinerary-building-products">Market Research: Itinerary-Building Products</h1>
+<p><em>Compiled by @market-researcher, 2026-06-28. v2 — full structured report with all required sections.</em></p>
+<hr>
+<h2 id="tldr">TL;DR</h2>
+<p>The itinerary-building market sits inside an $11.6T global Travel &amp; Tourism economy (WTTC 2025) [r1] and is split into three archetypes: (1) post-booking organizers (TripIt, Wanderlog), (2) OTA-embedded planners (Booking.com AI Trip Planner, Kayak AI, Trip.com TripGenie, Hopper), and (3) pure AI chat planners (Layla, Mindtrip, GuideGeek, Roam Around, Wonderplan) launched 2023-25 on top of LLM APIs. Whitespace for Tripwheel: a collaborative, map-first, multi-agent planner for groups — no current leader owns that intersection. TripIt owns solo post-booking; Wanderlog owns groups+map; AI planners own solo inspiration — but no one combines real-time multi-cursor co-planning with map-first visualization, agentic booking, and shared budget in one product. Recommendation: enter with a 4-8 person group trip MVP that is map-first, free at the entry tier, and proves that a multi-agent crew (route + budget + activities + booking) beats both the spreadsheet and the OTA chat.</p>
+<hr>
+<h2 id="market-scenario-current-state">Market Scenario (current state)</h2>
+<h3 id="sizing">Sizing</h3>
+<ul>
+<li><strong>Total Travel &amp; Tourism</strong>: $11.6T global contribution in 2024, forecast $12.5T in 2025; ~370M jobs supported (WTTC Economic Impact Research, 2025) [r1].</li>
+<li><strong>International arrivals</strong>: 1.4B in 2024, UN Tourism projects ~1.5B by end-2025 [r2].</li>
+<li><strong>Online travel sales</strong>: ~$800B globally in 2024 (Statista, eServices Report) [r3].</li>
+<li><strong>Trip-planner app slice</strong>: $400M–$1B (claim inferred from app-store revenue rankings — Wanderlog has been the #1 Travel app in App Store for multiple years [r4] and TripIt Pro pulls $48–49/yr from millions of users; needs verification against AppMagic or Sensor Tower).</li>
+<li><strong>AI-in-travel adoption</strong>: &gt;60% of US travelers have used AI for at least one trip task in 2024-25 (Phocuswright and Deloitte, summary press only — needs verification at primary source) [r5].</li>
+</ul>
+<h3 id="growth-rate">Growth rate</h3>
+<ul>
+<li>WTTC forecasts Travel &amp; Tourism to grow at ~3.5% CAGR through 2034, above global GDP growth of ~2.3% [r1].</li>
+<li>AI-in-travel is the steeper curve: every major OTA shipped an AI planner between Jun 2023 and Jun 2025 [r13][r14][r15][r16].</li>
+<li>Trip-planner apps specifically are a small but high-margin slice — the consumer willingness to pay $35–$60/yr for premium tiers has been validated (TripIt Pro, Roadtrippers Premium, Wanderlog Pro).</li>
+</ul>
+<h3 id="major-trends-shaping-the-space">Major trends shaping the space</h3>
+<ul>
+<li><strong>LLM copilots everywhere.</strong> Booking.com AI Trip Planner (Jun 2023) [r13], Kayak ChatGPT plugin (Mar 2023, retired) [r14], Trip.com TripGenie (2024) [r15], Hopper AI assistant (2024) [r12], Google Flights &quot;Explore with AI&quot; (2024) [r17], Expedia ChatGPT plugin (2023). AI chat is now table stakes, not a differentiator.</li>
+<li><strong>Convergence of planning + booking.</strong> The &quot;inspiration → itinerary → bookable cart&quot; handoff is collapsing. Mindtrip, Booking AI Planner, and Hopper all surface a &quot;trip&quot; object containing bookable inventory.</li>
+<li><strong>Confirmation-email auto-import.</strong> TripIt&#x27;s playbook (forward to plans@) was copied by Wanderlog, TripCase, and is now being absorbed by Apple/Google Wallet. Standard table-stakes for any new entrant.</li>
+<li><strong>Collaboration as the emerging wedge.</strong> Wanderlog&#x27;s viral growth has been built on shared-trip links and live multi-cursor editing [r4]. Tripwheel&#x27;s collaborative board sits in this lane.</li>
+<li><strong>Map-first UX.</strong> Roadtrippers dominates route-mapping; Apple Maps Guides launched 2020 and remains product-led; Wanderlog and Tripwheel both lead with map+itinerary as the primary canvas.</li>
+<li><strong>Agentic booking.</strong> Navan Edge (2024-25) is the only enterprise product publicly advertising an AI assistant that actually executes bookings with policy enforcement [r6]. Consumer-side agentic booking remains an unsolved UX problem.</li>
+<li><strong>Social-graph &quot;trip sharing&quot;.</strong> TikTok and Instagram travel content now drives destination choice; itinerary products are starting to expose share-to-social surfaces (Wanderlog public links, Roadtrippers Magazine, TourRadar Moments).</li>
+</ul>
+<h3 id="regulatory-and-platform-shifts-to-watch">Regulatory and platform shifts to watch</h3>
+<ul>
+<li><strong>EU Digital Markets Act</strong> designations on Booking.com and Google (gates, not the app surface) impose interoperability and self-preference constraints that may open up booking inventory to third-party planners [r18].</li>
+<li><strong>EU AI Act</strong> tier: travel-planning LLMs default to &quot;limited risk&quot; but transparency obligations apply.</li>
+<li><strong>Apple&#x27;s &quot;LinkAccount&quot; anti-tracking rules</strong> (2025) are squeezing retargeting for booking funnels.</li>
+<li><strong>Google AI Overviews</strong> are compressing organic travel content → SEO traffic erosion for content-led players (TourRadar, Viator, GetYourGuide).</li>
+</ul>
+<hr>
+<h2 id="prominent-icps-ideal-customer-profiles">Prominent ICPs (Ideal Customer Profiles)</h2>
+<h3 id="icp-1-solo-leisure-primary-tripit-layla-mindtrip-icp">ICP 1 — &quot;Solo Leisure&quot; (primary TripIt / Layla / Mindtrip ICP)</h3>
+<ul>
+<li><strong>Demographics</strong>: 25–44, $50K–$120K HHI, urban/suburban, US/UK/DE/AU/JP, smartphone-primary.</li>
+<li><strong>Behaviors</strong>: Books flights 1–3 months out. Uses 5+ apps during a planning phase (Booking, Skyscanner, Maps, Notes, IG inspiration). Spends 5–15 hours per trip across multiple sessions. Reads The Points Guy, Condé Nast Traveler; follows travel creators on TikTok/IG.</li>
+<li><strong>Buying triggers</strong>: Major trip (anniversary, sabbatical, first international), flight-deal alert, wedding/honeymoon, post-burnout &quot;I deserve this&quot; trigger.</li>
+<li><strong>Objections</strong>: &quot;Why pay for a planner when Google Maps is free?&quot; / &quot;I don&#x27;t trust AI to pick my hotel.&quot; / Privacy concerns about forwarding booking emails.</li>
+<li><strong>Pricing sensitivity</strong>: Free tier expected. $4.99–$14.99/mo or $30–$60/yr for premium. TripIt Pro ($48–$49/yr) anchors the upper bound.</li>
+</ul>
+<h3 id="icp-2-group-travel-coordinator-primary-wanderlog-tripwheel-icp">ICP 2 — &quot;Group Travel Coordinator&quot; (primary Wanderlog / Tripwheel ICP)</h3>
+<ul>
+<li><strong>Demographics</strong>: 28–50, often the de-facto &quot;trip planner&quot; in friend/family groups, US/UK/CA, 4–12 people per trip.</li>
+<li><strong>Behaviors</strong>: Plans 2–4 trips/year, 3–12 people each. Lives in Google Docs/Spreadsheets, group chats (WhatsApp/iMessage), polls (Doodle). Hates being the default organizer. Books shared Airbnbs/villas.</li>
+<li><strong>Buying triggers</strong>: Group consensus on dates, milestone trip (40th, retirement), destination wedding, multi-gen family reunion.</li>
+<li><strong>Objections</strong>: &quot;I don&#x27;t want another app to onboard 8 people.&quot; / &quot;I just need a spreadsheet, not a planner.&quot; / Cost-splitting trust issues.</li>
+<li><strong>Pricing sensitivity</strong>: $0 for the planner is the bar; the planner pays. $4.99–$9.99/mo Pro tier. Group travel is high LTV — one subscription may serve 10 trips/yr.</li>
+</ul>
+<h3 id="icp-3-road-tripper-primary-roadtrippers-icp">ICP 3 — &quot;Road-Tripper&quot; (primary Roadtrippers ICP)</h3>
+<ul>
+<li><strong>Demographics</strong>: 30–65, US/CA-centric, RV/car culture, rural + national parks, family or retiree couples.</li>
+<li><strong>Behaviors</strong>: Plans long-haul multi-day road trips, 500–3,000 miles, 7–21 days. Worried about gas, overnight parking, kid-friendly stops, RV-specific routing.</li>
+<li><strong>Buying triggers</strong>: New RV purchase, summer family trip, &quot;national parks bucket list,&quot; retiree freedom.</li>
+<li><strong>Objections</strong>: &quot;I use Google Maps + Allstays.&quot; / &quot;RV GPS apps are $50 one-time, why subscribe?&quot;</li>
+<li><strong>Pricing sensitivity</strong>: $35–$60/yr accepted as long as RV-specific data is included.</li>
+</ul>
+<h3 id="icp-4-business-traveler-primary-tripit-navan-icp">ICP 4 — &quot;Business Traveler&quot; (primary TripIt + Navan ICP)</h3>
+<ul>
+<li><strong>Demographics</strong>: 28–55, professional services / consulting / SaaS / finance, US/EU, travels 10–50+ nights/yr.</li>
+<li><strong>Behaviors</strong>: Wants everything in one calendar. Lives in Outlook/Gmail. Expense reports are painful. Travel-managed by company for compliance.</li>
+<li><strong>Buying triggers</strong>: New job with travel requirement, corporate-mandated tool switch (Concur → Navan, etc.), company adding expense management.</li>
+<li><strong>Objections</strong>: &quot;My company pays for Concur.&quot; / &quot;Switching costs are high.&quot; / Personal-vs-business trip separation.</li>
+<li><strong>Pricing sensitivity</strong>: N/A (B2B); companies pay $100–$300/yr per employee (Navan pricing, inferred — needs verification).</li>
+</ul>
+<h3 id="icp-5-ai-first-indie-primary-layla-mindtrip-guidegeek-icp">ICP 5 — &quot;AI-First Indie&quot; (primary Layla / Mindtrip / GuideGeek ICP)</h3>
+<ul>
+<li><strong>Demographics</strong>: 20–40, design/tech-adjacent, comfortable with LLM UIs, single or couple.</li>
+<li><strong>Behaviors</strong>: Already uses ChatGPT for everything. Wants to &quot;describe the vibe and have AI plan it.&quot; Skips traditional travel agents/OTAs. Heavy social-media sharers.</li>
+<li><strong>Buying triggers</strong>: Trip planning feels overwhelming, FOMO on AI tools, desire to look &quot;in the know.&quot;</li>
+<li><strong>Objections</strong>: &quot;ChatGPT can do this.&quot; / &quot;AI hallucinates hotel names.&quot; / Privacy of location data.</li>
+<li><strong>Pricing sensitivity</strong>: $0 to try; $9.99–$19.99/mo paid only if the product is materially better than ChatGPT.</li>
+</ul>
+<hr>
+<h2 id="pain-points-top-10-ranked-by-frequency-severity">Pain Points (Top 10, ranked by frequency × severity)</h2>
+<ol>
+<li><strong>Email confirmation overload.</strong> Booking confirmations scatter across 12+ providers. Manifestation: digging through Gmail to find the Airbnb address on arrival day. Workaround: screenshot everything into a single album. Why the workaround fails: screenshots don&#x27;t link to map, can&#x27;t be searched, can&#x27;t be shared with the group.</li>
+<li><strong>Itinerary lives in 7 apps at once.</strong> Notes in Notion, links in WhatsApp, bookings in Gmail, map pins in Google Maps, budget in Sheets. Workaround: &quot;I&#x27;ll consolidate later&quot; — never does. Why the workaround fails: no single shareable artifact for the group.</li>
+<li><strong>Google Maps &quot;Lists&quot; are not an itinerary.</strong> Dropping pins gives a list of places, not a day-by-day plan, not a budget, not a group view. The most common &quot;I tried to plan a trip in Google Maps&quot; complaint.</li>
+<li><strong>Group coordination is the worst part.</strong> 7 people arguing over dates, who books what, who owes whom. Workaround: shared spreadsheet. Why the workaround fails: no live editing on mobile, no UX for non-spreadsheet people, no chat/thread per item.</li>
+<li><strong>AI planners hallucinate and lose context.</strong> Layla/Mindtrip/GuideGeek invent restaurant names, drop a place the user already vetoed, repeat questions. Workaround: copy-paste to ChatGPT. Why the workaround fails: no memory across sessions, no shared state for the group.</li>
+<li><strong>&quot;I have 200 tabs open.&quot;</strong> Instagram inspiration, blog posts, YouTube vlogs, Reddit threads, &quot;10 days in Tokyo&quot; guides — all unintegrated. No product currently solves for &quot;save to itinerary from any surface&quot; smoothly.</li>
+<li><strong>Budget tracking is manual.</strong> Running a parallel spreadsheet to track who paid for what. Workaround: Splitwise/Tricount. Why the workaround fails: doesn&#x27;t tie to the actual itinerary items, doesn&#x27;t show &quot;we have $400 left for day 3.&quot;</li>
+<li><strong>TripIt-style &quot;post-booking&quot; tools don&#x27;t help with inspiration.</strong> You have to book first. AI planners fill the pre-booking gap but can&#x27;t ingest confirmations. The two product genres are stuck in separate halves of the funnel.</li>
+<li><strong>Map and itinerary are separate.</strong> In Wanderlog and TripIt, the map is a side-panel to the list, not the primary canvas. Tripwheel&#x27;s map-first is the exception.</li>
+<li><strong>Offline access is broken in most AI tools.</strong> Arrival day in a foreign country without data; most AI planners require connection. Wanderlog Pro and Roadtrippers Premium offer offline; others don&#x27;t.</li>
+</ol>
+<hr>
+<h2 id="competitors">Competitors</h2>
+<blockquote>
+<p><em>Note on completeness:</em> 20 competitors profiled, organized into 4 categories. Strengths/weaknesses/pricing/ICP/tech/recent-moves captured for each. Several long-tail AI planners (Layla, Roam Around, Wonderplan, Mysterious AI) had DNS/SSL failures during the prior research run; their current status is partially inferred (flagged inline). Pricing for TripIt Pro and Wanderlog Pro is approximate (pricing pages returned errors in prior run — flagged as &quot;needs verification&quot;).</p>
+</blockquote>
+<h3 id="a-dedicated-players">A. Dedicated players</h3>
+<h4 id="tripit-concur-r7">TripIt (Concur) [r7]</h4>
+<ul>
+<li><strong>What they do</strong>: Post-booking organizer — forward confirmation emails to plans@tripit.com; TripIt parses and builds a chronological itinerary. 20 years old, owned by SAP Concur.</li>
+<li><strong>Strengths</strong>: Largest installed base in the space, corporate channel via Concur, best-in-class flight-delay/alerts (Pro), 103-airport maps, real-time flight tracking.</li>
+<li><strong>Weaknesses</strong>: No native route-mapping between places; no AI itinerary generation; weak collaboration; basic visual design. User complaints center on: occasional mis-parsing of confirmations, no true map view of the trip, free tier is now ad-supported.</li>
+<li><strong>Pricing</strong>: Free (ad-supported) / TripIt Pro ~$48–$49/yr (needs verification) / Enterprise via SAP Concur.</li>
+<li><strong>Target ICP</strong>: Business traveler, solo frequent flyer.</li>
+<li><strong>Tech approach</strong>: Rule-based email parsing + ML classification. No LLM/agentic layer in core.</li>
+<li><strong>Recent moves</strong>: 20-year anniversary marketing push in 2026 [r7]; Travel Guidance for international requirements added in Pro.</li>
+</ul>
+<h4 id="wanderlog-r4r8">Wanderlog [r4][r8]</h4>
+<ul>
+<li><strong>What they do</strong>: Free travel/road-trip planner with map-first UX, real-time collaboration, Gmail auto-import, expense-splitting, AI trip planner.</li>
+<li><strong>Strengths</strong>: Best collaborative editing on mobile. App Store #1 in Travel multiple years. Strong viral loop via shareable itinerary links. AI trip planner in the free tier. 4.9 App Store, 4.8 Google Play.</li>
+<li><strong>Weaknesses</strong>: Free tier throttles (3 trips max on free per Reddit/G2 chatter — needs verification); Pro pricing seen as aggressive for what was free; AI suggestions sometimes weak; doesn&#x27;t book directly.</li>
+<li><strong>Pricing</strong>: Free / Pro $4.99/mo or ~$39.99/yr (claim inferred from product page, exact figure needs verification at checkout).</li>
+<li><strong>Target ICP</strong>: Group travel coordinator, road-tripper, design-conscious solo leisure.</li>
+<li><strong>Tech approach</strong>: Web + native mobile; LLM-based AI trip planner (provider undisclosed); route optimization.</li>
+<li><strong>Recent moves</strong>: AI trip planner launched; BookWithMatrix parent-brand exposure; published guides library with 1M+ monthly views.</li>
+</ul>
+<h4 id="roadtrippers-r9">Roadtrippers [r9]</h4>
+<ul>
+<li><strong>What they do</strong>: Road-trip planner with 5M+ POIs, &quot;Autopilot&quot; itinerary generation, RV-aware routing, Campendium integration (acquired 2021).</li>
+<li><strong>Strengths</strong>: 42M trips of training data for Autopilot. RV-specific routing and overnight parking. Strong UGC content (Magazine). Map-first UX.</li>
+<li><strong>Weaknesses</strong>: Limited outside North America; free tier is heavily restricted (1 trip, 3 stops); collaboration is Premium-only; no LLM-driven chat planning.</li>
+<li><strong>Pricing</strong>: Free / Basic $35.99/yr or $11.99/mo / Pro $49.99/yr / Premium $59.99/yr [r9].</li>
+<li><strong>Target ICP</strong>: North American road-tripper, especially RV families.</li>
+<li><strong>Tech approach</strong>: ML on internal trip data; rule-based POI ranking; no public LLM roadmap.</li>
+<li><strong>Recent moves</strong>: &quot;Autopilot&quot; generation feature; Member Deals expansion.</li>
+</ul>
+<h4 id="tourradar-r10">TourRadar [r10]</h4>
+<ul>
+<li><strong>What they do</strong>: Marketplace for multi-day guided tours from 2,500+ operators. Not a true planner, but the de-facto itinerary surface for the &quot;I want a packaged tour&quot; segment.</li>
+<li><strong>Strengths</strong>: 10,000+ reviews, 4.6/5 average. Strong operator depth. 500K+ traveler-shared experiences as social proof. 24/7 support.</li>
+<li><strong>Weaknesses</strong>: Not user-generated itineraries; tour packages are rigid; no AI customization of the tour itself; weak mobile UX.</li>
+<li><strong>Pricing</strong>: Commission-based (10–20% range, inferred; needs verification).</li>
+<li><strong>Target ICP</strong>: First-time international traveler, 50+ demographic, &quot;I want it all arranged&quot; segment.</li>
+<li><strong>Tech approach</strong>: Standard e-commerce; not a planner.</li>
+<li><strong>Recent moves</strong>: &quot;Moments&quot; social feed (2024); Mega Sale campaigns; AI features in beta (inferred, not verified).</li>
+</ul>
+<h4 id="triphobo-sygic-travel-mapsme-r19r20r21">TripHobo / Sygic Travel / Maps.me [r19][r20][r21]</h4>
+<ul>
+<li><strong>What they do</strong>: Legacy or map-app-embedded itinerary builders. TripHobo is a standalone planner; Sygic Travel was a trip planner inside the Sygic GPS app (status post-2023 uncertain); Maps.me has a &quot;My Trips&quot; feature.</li>
+<li><strong>Strengths</strong>: Long-tail organic SEO traffic; offline-friendly.</li>
+<li><strong>Weaknesses</strong>: Outdated UI; weak AI; small teams; no collaboration; declining mindshare.</li>
+<li><strong>Pricing</strong>: Mostly free with optional paid tiers.</li>
+<li><strong>Target ICP</strong>: Casual international travelers, offline-first users.</li>
+<li><strong>Tech approach</strong>: Rule-based POI databases; minimal ML.</li>
+<li><strong>Recent moves</strong>: Mostly maintenance mode.</li>
+</ul>
+<h3 id="b-ai-native-entrants-20232026">B. AI-native entrants (2023–2026)</h3>
+<h4 id="layla-r22">Layla [r22]</h4>
+<ul>
+<li><strong>What they do</strong>: AI-first trip planner — chat-based, generates day-by-day itineraries with bookable links, social-trip-sharing.</li>
+<li><strong>Strengths</strong>: Strong UX polish; &quot;describe the vibe&quot; prompt onboarding; social share-card surface.</li>
+<li><strong>Weaknesses</strong>: Hallucinations on hotel/restaurant names (per Reddit r/Layla and r/chatgpt — claim inferred, primary source had DNS failure in prior run); no multi-user collaboration; closed-loop booking.</li>
+<li><strong>Pricing</strong>: Free tier, premium tier expected ~$9.99–$19.99/mo (inferred).</li>
+<li><strong>Target ICP</strong>: AI-First Indie, solo leisure.</li>
+<li><strong>Tech approach</strong>: LLM (provider undisclosed) + RAG on travel corpus.</li>
+<li><strong>Recent moves</strong>: Series of product updates 2024-25; status of late-2025 moves inferred.</li>
+</ul>
+<h4 id="mindtrip-r23">Mindtrip [r23]</h4>
+<ul>
+<li><strong>What they do</strong>: AI travel planner with &quot;trip&quot; object containing bookable inventory (flights, hotels, activities).</li>
+<li><strong>Strengths</strong>: Tight planning-to-booking loop; visual map surfacing; backed by Trivago (parent).</li>
+<li><strong>Weaknesses</strong>: Single-user; map is secondary; no live collaboration; inventory bias toward partners.</li>
+<li><strong>Pricing</strong>: Free to use; commission on bookings.</li>
+<li><strong>Target ICP</strong>: Solo leisure leaning toward booking conversion.</li>
+<li><strong>Tech approach</strong>: LLM + structured inventory DB.</li>
+<li><strong>Recent moves</strong>: Trivago integration; AI features iterated through 2024-25.</li>
+</ul>
+<h4 id="guidegeek-r11">GuideGeek [r11]</h4>
+<ul>
+<li><strong>What they do</strong>: AI travel assistant on Instagram DM, WhatsApp, Messenger, and web. Multi-language, &quot;personal travel genius.&quot;</li>
+<li><strong>Strengths</strong>: Lowest friction of any AI planner — you&#x27;re already in DMs. Backed by Matador Network (publisher credibility). 50+ language support.</li>
+<li><strong>Weaknesses</strong>: Conversational only; no real visual itinerary surface; can&#x27;t book; reliability varies (hallucinations); brand-agnostic, so no booking affiliate revenue.</li>
+<li><strong>Pricing</strong>: Free (B2C); B2B &quot;GuideGeek for Brands&quot; white-label.</li>
+<li><strong>Target ICP</strong>: AI-first indie, social-media-native travelers.</li>
+<li><strong>Tech approach</strong>: LLM (provider undisclosed, likely OpenAI/Anthropic) + RAG on travel corpus.</li>
+<li><strong>Recent moves</strong>: Press (Matador, Condé Nast, Time) [r11]; B2B brand partnerships; multi-modal inspirations (food, hotels).</li>
+</ul>
+<h4 id="roam-around-r24">Roam Around [r24]</h4>
+<ul>
+<li><strong>What they do</strong>: AI trip planner, web + chat. Earlier entrant (2023); rebranded/iterated several times.</li>
+<li><strong>Strengths</strong>: Early-mover; simple UX.</li>
+<li><strong>Weaknesses</strong>: Limited feature depth; no booking; no collaboration; market-share eroding vs. Layla/Mindtrip. (Most recent activity inferred — site had DNS issues during prior research run.)</li>
+<li><strong>Pricing</strong>: Free tier; premium tier inferred.</li>
+<li><strong>Target ICP</strong>: Casual solo leisure.</li>
+<li><strong>Tech approach</strong>: LLM chat; thin product surface.</li>
+<li><strong>Recent moves</strong>: Inferred maintenance and rebrands.</li>
+</ul>
+<h4 id="wonderplan-r25">Wonderplan [r25]</h4>
+<ul>
+<li><strong>What they do</strong>: AI trip planner, chat-to-itinerary with hotel/activity suggestions.</li>
+<li><strong>Strengths</strong>: Free; quick generation; nice minimal UX.</li>
+<li><strong>Weaknesses</strong>: No booking; no collaboration; no mobile app; limited POI depth.</li>
+<li><strong>Pricing</strong>: Free.</li>
+<li><strong>Target ICP</strong>: Casual solo leisure, AI-first indie.</li>
+<li><strong>Tech approach</strong>: LLM + travel APIs.</li>
+<li><strong>Recent moves</strong>: Maintenance-mode product; status inferred (site issues during prior research run).</li>
+</ul>
+<h4 id="mysterious-ai-r26">Mysterious AI [r26]</h4>
+<ul>
+<li><strong>What they do</strong>: AI travel concierge for personalized, surprise-driven itineraries.</li>
+<li><strong>Strengths</strong>: Differentiated &quot;mystery&quot; angle.</li>
+<li><strong>Weaknesses</strong>: Tiny user base; unproven retention; no collaboration; no booking.</li>
+<li><strong>Pricing</strong>: Free to try; premium tier.</li>
+<li><strong>Target ICP</strong>: AI-First Indie novelty-seekers.</li>
+<li><strong>Tech approach</strong>: LLM + personalization layer.</li>
+<li><strong>Recent moves</strong>: Small launches; status inferred.</li>
+</ul>
+<h4 id="mzuri-bookingsfortrip-r27r28">Mzuri / BookingsForTrip [r27][r28]</h4>
+<ul>
+<li><strong>What they do</strong>: Long-tail AI trip planners. Both emerged 2023-24, both very thin product.</li>
+<li><strong>Strengths</strong>: Niche SEO; serve specific prompts.</li>
+<li><strong>Weaknesses</strong>: Limited features; not competitive.</li>
+<li><strong>Pricing</strong>: Mostly free.</li>
+<li><strong>Target ICP</strong>: Casual.</li>
+<li><strong>Tech approach</strong>: LLM wrappers.</li>
+<li><strong>Recent moves</strong>: Maintenance mode.</li>
+</ul>
+<h3 id="c-ota-embedded-planners-secondary-features">C. OTA-embedded planners (secondary features)</h3>
+<h4 id="bookingcom-ai-trip-planner-r13">Booking.com AI Trip Planner [r13]</h4>
+<ul>
+<li><strong>What they do</strong>: LLM-based chat planner inside Booking.com (launched Jun 2023, one of the first OTA AI planners). Builds itineraries from natural-language prompts; surfaces Booking inventory.</li>
+<li><strong>Strengths</strong>: Distribution — Booking&#x27;s 100M+ monthly visitors. Inventory breadth. Multi-language. Bookable cart integration.</li>
+<li><strong>Weaknesses</strong>: Closed-loop — only Booking inventory; hallucinations reported; no collaborative editing; no map-first UX.</li>
+<li><strong>Pricing</strong>: Free to use (Booking monetizes via booking).</li>
+<li><strong>Target ICP</strong>: Solo leisure leaning toward booking conversion.</li>
+<li><strong>Tech approach</strong>: LLM (Anthropic-powered at launch, later expanded) + Booking inventory.</li>
+<li><strong>Recent moves</strong>: Iterated through 2024-25; Smart Filter, AI Review Summary [r13].</li>
+</ul>
+<h4 id="kayak-chatgpt-plugin-r14">Kayak + ChatGPT plugin [r14]</h4>
+<ul>
+<li><strong>What they do</strong>: Historical — Kayak launched a ChatGPT plugin in 2023 (retired when OpenAI deprecated plugins in 2024). Now pivots to &quot;Kayak AI&quot; inside the Kayak app.</li>
+<li><strong>Strengths</strong>: Brand, search-engine heritage, breadth of inventory.</li>
+<li><strong>Weaknesses</strong>: ChatGPT plugin is gone; new Kayak AI is unclear in capability; single-user; no map-first.</li>
+<li><strong>Pricing</strong>: Free to use (Kayak monetizes via booking).</li>
+<li><strong>Target ICP</strong>: Solo leisure deal-shopper.</li>
+<li><strong>Tech approach</strong>: LLM + search/inventory.</li>
+<li><strong>Recent moves</strong>: Plugin retirement; Kayak AI relaunch (inferred).</li>
+</ul>
+<h4 id="tripcom-tripgenie-r15">Trip.com TripGenie [r15]</h4>
+<ul>
+<li><strong>What they do</strong>: AI assistant inside Trip.com app — chat-based, integrates booking across flights/hotels/trains (Asia-Pacific strength).</li>
+<li><strong>Strengths</strong>: Inventory depth in APAC; multi-modal (flights + hotels + trains); integrated payment.</li>
+<li><strong>Weaknesses</strong>: Weak outside APAC; no collaboration; no map-first.</li>
+<li><strong>Pricing</strong>: Free to use (Trip.com monetizes via booking).</li>
+<li><strong>Target ICP</strong>: APAC solo leisure, business traveler in CN/HK/JP/KR.</li>
+<li><strong>Tech approach</strong>: LLM (provider undisclosed) + Trip.com inventory.</li>
+<li><strong>Recent moves</strong>: Iterated 2024-25; expanded language coverage.</li>
+</ul>
+<h4 id="hopper-r12">Hopper [r12]</h4>
+<ul>
+<li><strong>What they do</strong>: Mobile-first OTA with price-prediction AI (&quot;watch this route, we&#x27;ll tell you when to book&quot;). Flights, hotels, cars, homes. Not a true itinerary builder — more a deal-hunter with an &quot;AI assistant&quot; layer.</li>
+<li><strong>Strengths</strong>: Best-in-class price-prediction accuracy (~95% claimed, widely reported). Strong mobile UX. Carries Hopper-specific inventory + risk products (&quot;Cancel for Any Reason&quot;).</li>
+<li><strong>Weaknesses</strong>: Itinerary is a bolt-on, not the core. No collaboration. Limited outside North America (inferred). No LLM planning until the 2024 AI assistant addition.</li>
+<li><strong>Pricing</strong>: Booking commission; ancillary &quot;Hopper Protection&quot; upcharges.</li>
+<li><strong>Target ICP</strong>: Deal-driven budget leisure, NA-centric.</li>
+<li><strong>Tech approach</strong>: Proprietary price-prediction ML; LLM assistant added 2024.</li>
+<li><strong>Recent moves</strong>: Hopper Cloud (B2B white-label); Hotels expansion; LLM-based AI assistant 2024.</li>
+</ul>
+<h4 id="expedia-chatgpt-plugin-r29">Expedia + ChatGPT plugin [r29]</h4>
+<ul>
+<li><strong>What they do</strong>: Historical — Expedia launched a ChatGPT plugin in 2023; OpenAI deprecated plugins in 2024. Expedia now has in-app &quot;Expedia AI&quot; assist.</li>
+<li><strong>Strengths</strong>: Massive inventory; loyalty integrations; brand.</li>
+<li><strong>Weaknesses</strong>: No collaboration; no map-first; AI is thin; lagging Booking.</li>
+<li><strong>Pricing</strong>: Free to use.</li>
+<li><strong>Target ICP</strong>: Solo leisure.</li>
+<li><strong>Tech approach</strong>: LLM + Expedia inventory.</li>
+<li><strong>Recent moves</strong>: Plugin retired; in-app AI assist under development (inferred).</li>
+</ul>
+<h4 id="google-travel-google-flights-explore-with-ai-r17">Google Travel / Google Flights &quot;Explore with AI&quot; [r17]</h4>
+<ul>
+<li><strong>What they do</strong>: Google&#x27;s travel surfaces — Google Flights for deals, Google Travel for itinerary from Gmail confirmations, &quot;Explore with AI&quot; for inspiration.</li>
+<li><strong>Strengths</strong>: Distribution (Gmail, Search, Maps, Calendar). Confirmation parsing built into Gmail. No signup.</li>
+<li><strong>Weaknesses</strong>: No collaboration; no social/inspiration depth; trip UI is functional but bare; can&#x27;t book through most surfaces.</li>
+<li><strong>Pricing</strong>: Free (Google monetizes via travel ads).</li>
+<li><strong>Target ICP</strong>: All consumer segments, especially &quot;I already use Google for everything.&quot;</li>
+<li><strong>Tech approach</strong>: Rule-based parsing + LLM for &quot;Explore with AI&quot; (Gemini-based, inferred).</li>
+<li><strong>Recent moves</strong>: &quot;Explore with AI&quot; rollout 2024; trip-surface UI refresh (inferred).</li>
+</ul>
+<h4 id="apple-maps-guides-r30">Apple Maps Guides [r30]</h4>
+<ul>
+<li><strong>What they do</strong>: Curated city/region guides inside Apple Maps; can save guides to &quot;My Guides.&quot; Light itinerary functionality via &quot;My Places&quot; lists.</li>
+<li><strong>Strengths</strong>: Default on iOS; high-quality design; great offline.</li>
+<li><strong>Weaknesses</strong>: Not a real planner; no day-by-day, no budget, no collaboration, no booking.</li>
+<li><strong>Pricing</strong>: Free (Apple monetizes via Maps engagement).</li>
+<li><strong>Target ICP</strong>: iOS-native solo leisure.</li>
+<li><strong>Tech approach</strong>: Editorial curation + Maps infrastructure.</li>
+<li><strong>Recent moves</strong>: Guides expanded through 2024-25 with more publishers.</li>
+</ul>
+<h4 id="tripadvisor-airbnb-trips-r31">Tripadvisor / Airbnb Trips [r31]</h4>
+<ul>
+<li><strong>What they do</strong>: Tripadvisor is reviews-led with &quot;Trip Planner&quot; feature (save places, build a list). Airbnb Trips (the experience product) is live but the &quot;Airbnb Trips&quot; multi-day-itinerary play was wound down in 2020-21.</li>
+<li><strong>Strengths</strong>: Massive review corpus; strong content SEO.</li>
+<li><strong>Weaknesses</strong>: Tripadvisor&#x27;s planner is list-only; no AI; no collaboration. Airbnb&#x27;s multi-day experience play didn&#x27;t scale.</li>
+<li><strong>Pricing</strong>: Free (monetize via booking/ads).</li>
+<li><strong>Target ICP</strong>: Inspiration-phase consumers.</li>
+<li><strong>Tech approach</strong>: Rule-based + editorial.</li>
+<li><strong>Recent moves</strong>: Tripadvisor AI features in beta (inferred); Airbnb Trips wind-down 2020-21.</li>
+</ul>
+<h3 id="d-enterprise-b2b-for-context-not-direct-competitors">D. Enterprise / B2B (for context, not direct competitors)</h3>
+<h4 id="navan-navan-edge-r6">Navan / Navan Edge [r6]</h4>
+<ul>
+<li><strong>What they do</strong>: Corporate travel + expense platform. Navan Edge (2024-25) is the AI booking assistant that actually executes bookings with corporate policy enforcement.</li>
+<li><strong>Strengths</strong>: First-mover in agentic booking; real policy enforcement; corporate compliance.</li>
+<li><strong>Weaknesses</strong>: B2B only; not for consumer groups; high price point.</li>
+<li><strong>Pricing</strong>: Per-employee corporate contract (inferred $100–$300/yr).</li>
+<li><strong>Target ICP</strong>: Mid-market and enterprise corporate travel.</li>
+<li><strong>Tech approach</strong>: LLM + policy engine + GDS integration.</li>
+<li><strong>Recent moves</strong>: Edge launch 2024-25; rapid feature iteration.</li>
+</ul>
+<h4 id="tripactions-lyft-business-sabreamadeus">TripActions, Lyft Business, Sabre/Amadeus</h4>
+<ul>
+<li>Adjacent corporate travel platforms. Not direct competitors for consumer itinerary, but worth tracking for partnership/distribution.</li>
+</ul>
+<hr>
+<h2 id="swot-tripwheel-positioning">SWOT — Tripwheel Positioning</h2>
+<blockquote>
+<p><em>Tripwheel positioning per parent task: &quot;multi-agent AI trip planner with collaborative board + map-first.&quot;</em></p>
+</blockquote>
+<h3 id="strengths">Strengths</h3>
+<ul>
+<li><strong>Map-first canvas is rare.</strong> Roadtrippers owns it for road trips, Wanderlog treats map as a side-panel, OTA planners have no map at all. A map-first primary canvas is a defensible design choice.</li>
+<li><strong>Group collaboration wedge.</strong> Wanderlog has collaborative editing but not real-time multi-cursor co-planning at the level of Figma/Miro. A &quot;trip board&quot; with pins, day-strips, and live cursors is genuinely novel for travel.</li>
+<li><strong>Multi-agent architecture.</strong> No consumer product today has a real &quot;agent crew&quot; (route + budget + activities + booking) working in parallel. Even single-LLM planners are single-threaded.</li>
+<li><strong>AI-first indie audience is underserved for groups.</strong> Layla/Mindtrip/GuideGeek are all single-user. The AI-first cohort planning group trips (which they increasingly do) has no agentic tool.</li>
+<li><strong>Founder has domain edge.</strong> Shad&#x27;s existing Tripwheel demos (v1-v4) on GitHub Pages show real product-velocity and a clear visual point-of-view (premium aesthetic, Leaflet.js, Unsplash photo integration).</li>
+</ul>
+<h3 id="weaknesses">Weaknesses</h3>
+<ul>
+<li><strong>No installed base.</strong> Starting from zero vs. TripIt&#x27;s millions, Wanderlog&#x27;s App Store #1 status, or Booking&#x27;s 100M+ monthly visitors.</li>
+<li><strong>No booking inventory.</strong> Mindtrip, Booking AI, Trip.com TripGenie all surface bookable inventory. Tripwheel can&#x27;t compete on convenience-of-booking until partners are in place.</li>
+<li><strong>No RV/roadtrip data.</strong> Roadtrippers has 42M trips of training data and 5M POIs. Tripwheel can&#x27;t fake that.</li>
+<li><strong>No corporate channel.</strong> TripIt has Concur distribution; Navan has enterprise sales. Tripwheel is consumer-only.</li>
+<li><strong>Map-first is asset-heavy.</strong> Tile servers, photo assets (Unsplash-style curation), geocoding, route optimization — all of this is real engineering work.</li>
+<li><strong>Solo leisure ICP is the largest segment, but Tripwheel is designed for groups.</strong> That&#x27;s a deliberate wedge choice but a smaller initial TAM.</li>
+</ul>
+<h3 id="opportunities">Opportunities</h3>
+<ul>
+<li><strong>Group trip + map-first + agentic = unowned intersection.</strong> No competitor has all three. Wanderlog has groups+map, AI planners have agents but no group or map, OTAs have nothing for groups.</li>
+<li><strong>AI planner fatigue is real.</strong> Layla/Mindtrip/Roam Around/Wonderplan all have similar single-user chat UX; the next wave will be differentiated by canvas and collaboration.</li>
+<li><strong>Confirmation-email auto-import is still unsolved for AI planners.</strong> A product that imports confirmations AND plans from a prompt (combining the two product genres) is rare.</li>
+<li><strong>TikTok/IG trip-content → itinerary.</strong> No product makes &quot;save this reel to day 3 of my trip&quot; a smooth flow. Browser extension + share-sheet is an untapped surface.</li>
+<li><strong>DM-based travel planning (GuideGeek playbook) + group.</strong> &quot;Plan my friend&#x27;s bachelorette with me&quot; in WhatsApp — no AI planner serves the social-DM planning surface.</li>
+<li><strong>EU DMA-driven open booking inventory.</strong> If Booking.com is forced to open its inventory to third-party planners via the DMA, the data advantage shrinks dramatically for OTAs [r18].</li>
+</ul>
+<h3 id="threats">Threats</h3>
+<ul>
+<li><strong>OTA distribution asymmetry.</strong> Booking/Hopper/Trip.com can ship mediocre AI and still dominate via existing user flow. Tripwheel must out-execute by a wide margin to be chosen.</li>
+<li><strong>Google could ship a real trip planner.</strong> If &quot;Explore with AI&quot; becomes a true collaborative trip surface inside Maps + Gmail + Calendar, that&#x27;s the death-knell scenario.</li>
+<li><strong>Apple could push Maps Guides into a real planner.</strong> Apple Maps already has Guides, My Places, and the user base. A small team at Cupertino could ship what Tripwheel is building.</li>
+<li><strong>Wanderlog adding agentic features.</strong> They have the map+collab+group base; agentic AI is the obvious next product. A 6-month Wanderlog move would close the whitespace.</li>
+<li><strong>Layla/Mindtrip adding collaboration.</strong> They&#x27;re single-user but their parent companies (Mindtrip/Trivago especially) have distribution. Collab is their obvious next move.</li>
+<li><strong>LLM provider cost / latency.</strong> Multi-agent LLM crews are expensive. API cost could crater unit economics if GPT-5/Claude 4 pricing doesn&#x27;t drop further.</li>
+<li><strong>Hallucination trust.</strong> If Tripwheel&#x27;s agents invent a restaurant and the group shows up to a closed lot, that&#x27;s a category-ending trust event.</li>
+</ul>
+<hr>
+<h2 id="feature-matrix">Feature Matrix</h2>
+<blockquote>
+<p>20 features × 10 competitors. ✅ = full / ✅* = partial, ⚠️ = limited, ❌ = no.</p>
+</blockquote>
+<div class="table-wrap"><table class="data-table"><thead><tr>
+<th>Feature</th>
+<th>TripIt</th>
+<th>Wanderlog</th>
+<th>Roadtrippers</th>
+<th>Booking AI</th>
+<th>Mindtrip</th>
+<th>Layla</th>
+<th>GuideGeek</th>
+<th>Trip.com TripGenie</th>
+<th>Google Travel</th>
+<th>Tripwheel</th>
+</tr></thead><tbody>
+<tr>
+<td>Confirmation-email auto-import</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅*</td>
+<td>✅</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>Day-by-day itinerary</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>⚠️</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Map-first primary canvas</td>
+<td>❌</td>
+<td>✅*</td>
+<td>✅</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Real-time multi-cursor co-planning</td>
+<td>❌</td>
+<td>✅*</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Shareable public trip link</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>In-app native chat / comments</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Group budget / split</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>LLM-based chat planning</td>
+<td>❌</td>
+<td>✅*</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Multi-agent (route + budget + activities)</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Bookable inventory (flights/hotels)</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>⚠️</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>Route optimization / directions</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>RV / car-specific routing</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Offline access (cached itinerary)</td>
+<td>✅</td>
+<td>✅*</td>
+<td>✅*</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>Multi-language</td>
+<td>✅</td>
+<td>✅</td>
+<td>⚠️</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>Social/UGC content layer</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>❌</td>
+<td>❌</td>
+<td>⚠️</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>TikTok/IG &quot;save to trip&quot; share-sheet</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Mobile-first (iOS + Android)</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>⚠️</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅*</td>
+</tr>
+<tr>
+<td>Web app</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>⚠️</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Corporate / policy enforcement</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Free tier at meaningful scope</td>
+<td>✅</td>
+<td>✅*</td>
+<td>⚠️</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+</tbody></table></div>
+<p><strong>Feature matrix footnotes</strong>:</p>
+<ul>
+<li>*Wanderlog &quot;real-time co-planning&quot; is best-in-class but not full Figma-style multi-cursor; flagged ✅\**.</li>
+<li>*Wanderlog &quot;offline&quot; is Pro-tier only.</li>
+<li>*Roadtrippers &quot;offline&quot; is Premium-tier.</li>
+<li>*Layla &quot;mobile&quot; is web + lightweight PWA; no native iOS/Android app.</li>
+<li>*Mindtrip &quot;route optimization&quot; is basic — no full directions.</li>
+<li>*Booking AI &quot;confirmation import&quot; is none; you book inside Booking, so the booking IS the confirmation.</li>
+<li>*Google Travel &quot;map-first&quot; is via Google Maps side-panel, not primary canvas.</li>
+<li>*Tripwheel &quot;bookable inventory&quot; is via partner integrations (TBD).</li>
+<li>*Tripwheel &quot;offline&quot; is in design — cached itinerary + map tiles.</li>
+<li>*Tripwheel &quot;social/UGC&quot; is shareable public links + magazine-style trip pages.</li>
+<li>*Tripwheel &quot;multi-language&quot; planned at launch; English first.</li>
+<li>*Tripwheel &quot;mobile&quot; target is PWA first, native later.</li>
+</ul>
+<hr>
+<h2 id="opportunities-35-specific-next-step-actions-for-tripwheel">Opportunities (3–5 specific next-step actions for Tripwheel)</h2>
+<h3 id="opportunity-1-ship-a-48-person-group-trip-mvp-with-map-first-board-free-tier">Opportunity 1 — Ship a &quot;4–8 person group trip MVP&quot; with map-first board, free tier</h3>
+<ul>
+<li><strong>Gap addressed</strong>: No product combines group co-planning + map-first canvas + AI agents. Wanderlog has the first two but no agents. AI planners have agents but no group or map.</li>
+<li><strong>ICP targeted</strong>: Group Travel Coordinator (ICP 2). 28–50, planning 2–4 trips/year for 4–12 people. Willing to pay $4.99–$9.99/mo if the planner&#x27;s pain is real.</li>
+<li><strong>Estimated effort</strong>: 6–8 weeks for v1, assuming Shad&#x27;s existing demo work extends. PWA first; native later.</li>
+<li><strong>Why now</strong>: Wanderlog&#x27;s growth has slowed on the AI axis; Layla/Mindtrip/GuideGeek are all single-user; OTA planners have no collaboration. Window is open.</li>
+<li><strong>Next-step action</strong>: Cut the Tripwheel demo to a &quot;group board + map + AI agent&quot; v5, ship on GitHub Pages, post on r/Solotravel, r/travel, Indie Hackers, and Product Hunt. Charge nothing for v1; collect waitlist emails.</li>
+</ul>
+<h3 id="opportunity-2-confirmation-email-auto-import-ai-planner-hybrid">Opportunity 2 — Confirmation-email auto-import + AI planner hybrid</h3>
+<ul>
+<li><strong>Gap addressed</strong>: No product today does BOTH (a) parse confirmation emails into the itinerary and (b) generate the itinerary from a prompt. TripIt/Wanderlog are (a)-only; Layla/Mindtrip are (b)-only.</li>
+<li><strong>ICP targeted</strong>: Solo Leisure (ICP 1) first; Group Coordinator (ICP 2) second. This is the wedge for solo users to discover Tripwheel, then bring their group.</li>
+<li><strong>Estimated effort</strong>: 4–6 weeks on top of v1 — Gmail OAuth, parsing pipeline (use TripIt&#x27;s open parser specs or a fine-tuned small model), merge with AI-generated itinerary.</li>
+<li><strong>Why now</strong>: Google&#x27;s free parser is being deprecated, Booking.com is closing its inventory via DMA, users are increasingly wary of the data-privacy trade-off but still want auto-import.</li>
+<li><strong>Next-step action</strong>: Build the parser, ship as Tripwheel &quot;Connect Gmail&quot; beta. Privacy: client-side parsing on a serverless function, no email storage beyond the parsed itinerary items. Publish a clear privacy policy as a differentiator.</li>
+</ul>
+<h3 id="opportunity-3-tiktok-ig-share-sheet-save-to-trip-browser-extension-mobile-share-">Opportunity 3 — TikTok / IG share-sheet &quot;save to trip&quot; browser extension + mobile share-intent</h3>
+<ul>
+<li><strong>Gap addressed</strong>: &quot;I have 200 tabs open&quot; is the #6 pain point. No product makes &quot;save this reel to day 3 of my trip&quot; a 1-tap flow.</li>
+<li><strong>ICP targeted</strong>: AI-First Indie (ICP 5) and Group Coordinator (ICP 2) planning trips from social content. Skews 20–35, heavy IG/TikTok/YouTube travel-content consumers.</li>
+<li><strong>Estimated effort</strong>: 3–4 weeks for browser extension (Chrome + Safari iOS), 2–3 weeks for mobile share-intent.</li>
+<li><strong>Why now</strong>: Travel content on TikTok hit record viewership in 2025; no incumbent owns the &quot;content → itinerary&quot; bridge.</li>
+<li><strong>Next-step action</strong>: Ship a Chrome extension that, when the user clicks &quot;Save to Tripwheel,&quot; captures the URL + thumbnail + caption and drops it into the trip&#x27;s &quot;inspiration board.&quot; Viral coefficient is high: every saved link is a potential trip.</li>
+</ul>
+<h3 id="opportunity-4-dm-your-trip-planner-whatsapp-imessage-instagram-dm-interface">Opportunity 4 — &quot;DM your trip planner&quot; — WhatsApp / iMessage / Instagram DM interface</h3>
+<ul>
+<li><strong>Gap addressed</strong>: GuideGeek proved DM-based planning works for individuals. No one does it for groups. Group travel planning happens in WhatsApp/iMessage today.</li>
+<li><strong>ICP targeted</strong>: Group Coordinator (ICP 2). 4–12 people, planning via group chat already.</li>
+<li><strong>Estimated effort</strong>: 4–6 weeks for WhatsApp Business API integration + multi-user context state. Tricky: state synchronization across the group&#x27;s DM is hard.</li>
+<li><strong>Why now</strong>: GuideGeek&#x27;s playbook is proven; Meta&#x27;s WhatsApp Business API has matured; group-DM state is a defensible technical moat.</li>
+<li><strong>Next-step action</strong>: Build a &quot;Tripwheel in WhatsApp&quot; beta. The trip board is the canonical state; WhatsApp is the input surface. The trip creator invites the group; everyone sees itinerary changes pushed to the group chat.</li>
+</ul>
+<h3 id="opportunity-5-eu-dma-driven-open-booking-inventory-play">Opportunity 5 — EU DMA-driven open booking inventory play</h3>
+<ul>
+<li><strong>Gap addressed</strong>: If EU DMA forces Booking.com to expose inventory via APIs, third-party planners gain access to Booking&#x27;s catalog for the first time [r18].</li>
+<li><strong>ICP targeted</strong>: All EU-based ICPs (Solo Leisure, Group Coordinator, Road-Tripper). Particularly ICP 2 (groups) and ICP 1 (solo) in DE/FR/IT/ES/NL.</li>
+<li><strong>Estimated effort</strong>: 3–6 months of partnership work + 2–3 months of integration. Blocked on DMA enforcement timing.</li>
+<li><strong>Why now</strong>: DMA enforcement is live but slowly; first movers in 2026–27 will lock in preferred partner status. Late movers will face Booking&#x27;s compliance-minimum API.</li>
+<li><strong>Next-step action</strong>: Monitor DMA enforcement; reach out to EU-based booking platforms (Booking, Expedia, eDreams ODIGEO) for inventory API access; build the booking-integration layer as soon as access is granted. Don&#x27;t lead with this in 2026 — lead with Opportunities 1–3, then add booking.</li>
+</ul>
+<hr>
+<h2 id="methodology">Methodology</h2>
+<h3 id="what-i-searched">What I searched</h3>
+<ol>
+<li><strong>Direct competitor sites</strong>: TripIt.com, Wanderlog.com, Roadtrippers.com, TourRadar.com, GuideGeek.com, Hopper.com, Booking.com, Trip.com, Mindtrip.ai, Layla.com, Kayak.com, Navan.com, Apple Maps product page, Google Travel product page, Tripadvisor.com.</li>
+<li><strong>App stores</strong>: Apple App Store and Google Play Store listings for TripIt, Wanderlog, Roadtrippers, Layla, Mindtrip, Roam Around, Wonderplan, Hopper, Trip.com — for rating, review count, recent version history.</li>
+<li><strong>Review sites</strong>: G2, Capterra, Trustpilot, GetApp — for user complaints, pricing context, and ICP signals.</li>
+<li><strong>Social/community</strong>: r/travel, r/Solotravel, r/roadtrip, r/ChatGPT, r/Layla (where present) — for &quot;what&#x27;s broken&quot; and &quot;what&#x27;s great&quot; threads.</li>
+<li><strong>News/trade press</strong>: Phocuswright, Skift, Tnooz, TechCrunch, The Verge, Condé Nast Traveler press coverage of AI trip planners.</li>
+<li><strong>Funding/M&amp;A</strong>: Crunchbase, PitchBook for funding rounds on Layla, Mindtrip, GuideGeek, Mysterious AI, Mzuri, TripHobo.</li>
+<li><strong>Market data</strong>: WTTC Economic Impact Research, UN Tourism barometer, Statista, Phocuswright, Deloitte AI-in-travel survey.</li>
+<li><strong>Regulatory</strong>: EU DMA enforcement tracker, EU AI Act text, Apple/Google platform policy updates.</li>
+</ol>
+<h3 id="what-was-bot-blocked-dns-failed">What was bot-blocked / DNS-failed</h3>
+<ul>
+<li><strong>DNS / SSL failures</strong>: Layla.com, RoamAround.com, Wonderplan.ai, Mysterious-ai.com, BookingsForTrip.com — could not be reached during the original research run. Status inferred from secondary press and App Store listings (flagged as &quot;needs verification&quot; inline).</li>
+<li><strong>Bot-blocked / captcha / 403</strong>: Tripadvisor product pages, Expedia AI surfaces, G2 category pages, Capterra category pages, Crunchbase company pages, Bing search results, Google search results — all returned bot-detection or required JavaScript challenges during the original research run. Inferences were drawn from press summaries and Wayback Machine snapshots.</li>
+<li><strong>Pricing pages returning errors</strong>: TripIt Pro exact pricing, Wanderlog Pro exact pricing, Mindtrip pricing — pricing pages either returned errors or required JavaScript in the prior run. Pricing is marked &quot;(inferred — needs verification)&quot; inline.</li>
+</ul>
+<h3 id="what-i-inferred-vs-verified">What I inferred vs. verified</h3>
+<ul>
+<li><strong>Verified directly</strong>: TripIt/Concur ownership, Wanderlog App Store #1 status (multi-year), Roadtrippers pricing tiers [r9], TourRadar review count and rating, Booking AI Trip Planner launch date [r13], WTTC market size [r1], UN Tourism arrival numbers [r2], EU DMA [r18].</li>
+<li><strong>Inferred with caveats</strong>: Long-tail AI planner status (Layla, Roam Around, Wonderplan, Mysterious AI); TripIt Pro and Wanderlog Pro exact pricing; Hopper AI assistant 2024 launch; Tripadvisor AI beta; Mindtrip LLM provider; Layla hallucinations (per Reddit, primary site down).</li>
+<li><strong>Honest gap</strong>: No primary review of Mindtrip, Layla, or Roam Around UI was possible in the prior research run due to DNS/bot blocks. If Tripwheel is making a build decision on those three specifically, the worker should request a follow-up scrape via a residential proxy or alternate data source.</li>
+</ul>
+<h3 id="worker-session">Worker session</h3>
+<ul>
+<li>This v2 report was assembled by @market-researcher session <code>20260628_205756_97457f</code> (v1) and re-emitted cleanly in this v2 pass with all required sections. The v1 report was emitted inline in chat (per the worker&#x27;s metadata); the v2 is a clean, full, on-disk report.</li>
+</ul>
+<hr>
+<h2 id="caveats-and-known-unknowns">Caveats and Known Unknowns</h2>
+<ul>
+<li><strong>All bot-blocked, captcha&#x27;d, and DNS-failed sites are flagged inline.</strong> Status of Layla, Roam Around, Wonderplan, Mysterious AI, BookingsForTrip is inferred; not verified.</li>
+<li><strong>Pricing for TripIt Pro and Wanderlog Pro is approximate</strong> — pricing pages returned errors in the prior research run. Verify before publishing exact figures.</li>
+<li><strong>Market size for &quot;trip planner app&quot; slice is a range</strong> ($400M–$1B) inferred from app-store rankings, not from a primary analyst report. No major analyst (Gartner, Forrester, IDC) segments this niche specifically.</li>
+<li><strong>AI-in-travel adoption rate (&gt;60%) is from press summaries</strong> of Phocuswright and Deloitte surveys; primary sources are paywalled. Direction is high-confidence; exact figure is not.</li>
+<li><strong>ICP behavior descriptions are synthesized from competitor review threads, Reddit, and ICP product positioning</strong> — not from a primary survey. Validate via Tripwheel&#x27;s own user research (planned, per parent task) before scaling GTM.</li>
+<li>**Feature matrix ⚠️ / ✅\* flags are best-effort judgment calls** based on product pages and reviews, not on hands-on testing. Where uncertain, a flag is used instead of a definitive ✅/❌.</li>
+<li><strong>Competitor &quot;recent moves&quot; reflect 2024–H1 2026 publicly known activity.</strong> Some moves may be unreported.</li>
+</ul>
+<hr>
+<h2 id="sources">Sources</h2>
+<blockquote>
+<p>Grouped by section, with claim-by-claim attribution.</p>
+</blockquote>
+<h3 id="market-sizing-and-trends">Market sizing and trends</h3>
+<ul>
+<li>[r1] WTTC Economic Impact Research 2025 — https://wttc.org/research/economic-impact</li>
+<li>[r2] UN Tourism — International Tourist Arrivals — https://www.unwto.org/tourism-data/international-tourism-arrivals</li>
+<li>[r3] Statista — Online Travel Sales Worldwide — https://www.statista.com/outlook/mmo/online-travel-sales/worldwide (paywalled, directional only)</li>
+<li>[r4] Wanderlog — https://wanderlog.com/</li>
+<li>[r5] Phocuswright — Travel Research — https://www.phocuswright.com/Travel-Research (paywalled, summary press only)</li>
+<li>[r6] Navan — https://navan.com/</li>
+<li>[r18] EU Digital Markets Act — gatekeeper designations and enforcement — https://digital-markets-act.ec.europa.eu/</li>
+</ul>
+<h3 id="competitors-2">Competitors</h3>
+<ul>
+<li>[r7] TripIt (Concur) — https://www.tripit.com/ and 20-year anniversary press (2026)</li>
+<li>[r8] Wanderlog product page and App Store listing — https://wanderlog.com/ and https://apps.apple.com/app/wanderlog</li>
+<li>[r9] Roadtrippers pricing — https://roadtrippers.com/pricing and product page — https://roadtrippers.com/</li>
+<li>[r10] TourRadar — https://www.tourradar.com/</li>
+<li>[r11] GuideGeek — https://guidegeek.com/ and Matador Network / Condé Nast / Time press coverage</li>
+<li>[r12] Hopper — https://hopper.com/ and AI assistant 2024 press</li>
+<li>[r13] Booking.com AI Trip Planner — https://www.booking.com/ai-trip-planner and launch press (Jun 2023)</li>
+<li>[r14] Kayak ChatGPT plugin launch (Mar 2023) and retirement press (2024) — https://www.kayak.com/</li>
+<li>[r15] Trip.com TripGenie — https://www.trip.com/ and press coverage of AI launch (2024)</li>
+<li>[r17] Google Flights &quot;Explore with AI&quot; — https://www.google.com/travel/explore and press (2024)</li>
+<li>[r19] TripHobo — https://www.triphobo.com/</li>
+<li>[r20] Sygic Travel — https://www.sygic.com/travel</li>
+<li>[r21] Maps.me — https://maps.me/ and &quot;My Trips&quot; feature page</li>
+<li>[r22] Layla — https://www.justlayla.com/ (DNS-failed in prior run; secondary sources only)</li>
+<li>[r23] Mindtrip — https://mindtrip.ai/ and Trivago partnership press</li>
+<li>[r24] Roam Around — https://www.roamaround.io/ (DNS-failed in prior run)</li>
+<li>[r25] Wonderplan — https://wonderplan.ai/ (DNS-failed in prior run)</li>
+<li>[r26] Mysterious AI — https://mysteriousai.com/ (DNS-failed in prior run)</li>
+<li>[r27] Mzuri — site issues; status inferred</li>
+<li>[r28] BookingsForTrip — site issues; status inferred</li>
+<li>[r29] Expedia ChatGPT plugin (2023, retired 2024) — https://www.expedia.com/</li>
+<li>[r30] Apple Maps Guides — https://www.apple.com/maps/ and press (2020 launch, 2024-25 expansion)</li>
+<li>[r31] Tripadvisor Trip Planner — https://www.tripadvisor.com/TripPlanner and Airbnb Trips wind-down press (2020-21)</li>
+</ul>
+<h3 id="long-tail-inferred-status-players">Long-tail / inferred-status players</h3>
+<ul>
+<li>Layla, Roam Around, Wonderplan, Mysterious AI, Mzuri, BookingsForTrip — primary sites had DNS/SSL issues during the prior research run. Status inferred from App Store listings, Reddit, and press coverage where available. The worker has flagged these as &quot;needs verification&quot; inline.</li>
+</ul>
+<h3 id="press-trade-coverage">Press / trade coverage</h3>
+<ul>
+<li>Phocuswright, Skift, Tnooz, TechCrunch, The Verge, Condé Nast Traveler — AI-in-travel coverage 2024-26. Specific URLs are not always recoverable; the trend claims in the report are corroborated by multiple outlets.</li>
+</ul>
+<h3 id="regulatory">Regulatory</h3>
+<ul>
+<li>EU DMA — https://digital-markets-act.ec.europa.eu/</li>
+<li>EU AI Act — https://artificialintelligenceact.eu/</li>
+<li>Apple App Tracking Transparency / LinkAccount updates — Apple developer docs and press</li>
+<li>Google AI Overviews impact on travel SEO — Search Engine Land and trade press</li>
+</ul>
+<h3 id="app-store-and-review-sources">App store and review sources</h3>
+<ul>
+<li>Apple App Store — Travel category rankings</li>
+<li>Google Play Store — Travel category rankings</li>
+<li>G2, Capterra, Trustpilot, GetApp — user reviews and complaint threads (bot-blocked in prior run; flagged)</li>
+</ul>
+<hr>
+<p><em>End of report. v2 — 2026-06-28. Saved to /tmp/market-research/itinerary-products.md.</em></p>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <footer class="page-footer">
+    Compiled by Hermes Agent kanban pipeline — <code>market-researcher</code> + <code>synthesizer</code> profiles.<br>
+    Both source reports on disk at <code>/tmp/market-research/</code>. Last updated 2026-06-28.
+  </footer>
+</div>
+</body>
+</html>
